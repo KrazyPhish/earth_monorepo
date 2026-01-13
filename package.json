@@ -15,7 +15,9 @@
     "precommit": "npx lint-staged --config lint-staged.config.ts",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:ci": "vitest run --coverage"
+    "test:ci": "vitest run --coverage",
+    "test:core": "pnpm vitest run --project develop-utils",
+    "test:pkg": "pnpm vitest run --project @anstec/earth"
   },
   "config": {
     "commitizen": {
@@ -31,6 +33,7 @@
     "pnpm": ">=10.26.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@cspell/dict-lorem-ipsum": "^4.0.5",

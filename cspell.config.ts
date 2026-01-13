@@ -30,6 +30,8 @@ export default {
     "**/tsconfig.json",
     "**/*.md",
     "**/stats.html",
+    ".changeset",
+    ".github",
     ".cspell",
     ".husky",
     ".gitignore",

@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-pnpm precommit
+pnpm precommit && pnpm test:pkg
