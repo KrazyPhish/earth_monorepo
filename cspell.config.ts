@@ -40,6 +40,7 @@ export default {
     "commitlint.config.ts",
     "cspell.config.ts",
     "eslint.config.ts",
-    ".lint-stage.config.ts",
+    "lint-stage.config.ts",
+    "prettier.config.ts",
   ],
 }
