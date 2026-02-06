@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 const log = (target: string, version: string, replacement: string) => {
@@ -38,7 +35,7 @@ export const deprecate = (
       //@ts-expect-error name type unsafe
       const owner = target.name ?? target.constructor.name
       const key = typeof prop === "string" ? prop : prop.toString()
-      Reflect.defineProperty(target, prop, {
+      Object.defineProperty(target, prop, {
         configurable: false,
         enumerable: true,
         get() {

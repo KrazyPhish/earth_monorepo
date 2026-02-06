@@ -4,7 +4,7 @@
  */
 export const constant = (value: any): PropertyDecorator => {
   return (target, prop) => {
-    Reflect.defineProperty(target, prop, {
+    Object.defineProperty(target, prop, {
       enumerable: true,
       configurable: false,
       writable: false,

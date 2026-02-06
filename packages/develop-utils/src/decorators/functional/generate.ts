@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * @description 属性生成器
@@ -13,13 +11,13 @@ export const generate = (value?: any): PropertyDecorator => {
   return (target, prop) => {
     const key = typeof prop === "string" ? prop : prop.toString()
     const pName = `_${key}`
-    Reflect.defineProperty(target, pName, {
+    Object.defineProperty(target, pName, {
       configurable: false,
       enumerable: false,
       writable: true,
       value,
     })
-    Reflect.defineProperty(target, prop, {
+    Object.defineProperty(target, prop, {
       configurable: false,
       enumerable: true,
       get() {

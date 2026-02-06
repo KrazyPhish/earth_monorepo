@@ -11,21 +11,12 @@ const ignores = ["**/node_modules/**", "**/dist/**", "/.*", "**/*.d.ts"]
 export default defineConfig(
   {
     ignores,
-    extends: [
-      eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      eslintConfigPrettier,
-    ],
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, eslintConfigPrettier],
     plugins: { prettier: eslintPluginPrettier },
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
       parser: tseslint.parser,
-      parserOptions: {
-        project: ["./tsconfig.json", "./apps/*/tsconfig.json", "./packages/*/tsconfig.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
     },
     rules: {
       eqeqeq: "error",
