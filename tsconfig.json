@@ -6,6 +6,7 @@
     "lib": ["ESNext"],
     "declaration": false,
     "downlevelIteration": true,
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

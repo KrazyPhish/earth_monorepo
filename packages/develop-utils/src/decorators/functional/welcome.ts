@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /**
@@ -31,8 +32,8 @@ export const welcome = (pkg: any, picPath: string): ClassDecorator => {
     console.log(tooltip)
     console.groupEnd()
     const map: string[][] = [
-      ["author", pkg.author],
-      ["version", pkg.version],
+      ["author", pkg.author as unknown as string],
+      ["version", pkg.version as unknown as string],
     ]
     const properties = map.reduce((prev, curr) => {
       const [key, value] = curr

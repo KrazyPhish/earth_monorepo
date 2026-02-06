@@ -13,7 +13,7 @@ export const enumerable: (value: boolean) => {
       descriptor.configurable = false
       return descriptor
     }
-    Object.defineProperty(target, prop, {
+    Reflect.defineProperty(target, prop, {
       configurable: false,
       enumerable: value,
       writable: true,
