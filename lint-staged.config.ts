@@ -6,5 +6,5 @@ const createLint = (target: string[]) => {
 
 export default {
   "*.{js,ts,jsx,tsx,vue}": createLint(["prettier --write", "eslint --ignore-pattern '*.config.ts'"]),
-  "*.{js,ts,tsx,css,less,scss,vue,html,md}": createLint(["cspell lint"]),
+  "*.{js,ts,tsx,css,less,scss,vue,html,md}": createLint(["cspell lint --ignore-pattern '*.config.ts'"]),
 }
