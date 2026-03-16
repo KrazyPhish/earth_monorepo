@@ -2,7 +2,7 @@ name: Sync release bump to main
 
 on:
   push:
-    branches: [ release ]
+    branches: [release]
 
 jobs:
   sync:
@@ -11,7 +11,7 @@ jobs:
 
     env:
       CI: true
-      HUSKY: 0 
+      HUSKY: 0
 
     permissions:
       contents: write
@@ -21,13 +21,13 @@ jobs:
       - name: Checkout release
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ github.token }}
           ref: release
           fetch-depth: 0
 
       - name: Create PR from release to main (skip CI)
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create \
             --base main \
@@ -39,7 +39,7 @@ jobs:
 
       - name: Auto merge PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER=$(gh pr list \
             --head release \

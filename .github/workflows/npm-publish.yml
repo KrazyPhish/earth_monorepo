@@ -20,15 +20,18 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ github.token }}
 
-      - uses: pnpm/action-setup@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 10.26.2
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 24.12.0
           registry-url: https://registry.npmjs.org
@@ -39,7 +42,7 @@ jobs:
       - name: Build Packages
         run: pnpm ci:build
 
-      - name: Changset Version
+      - name: Change Version
         run: pnpm ci:version
 
       - name: Publish packages
