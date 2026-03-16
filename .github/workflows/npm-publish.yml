@@ -5,8 +5,7 @@ name: Release Version
 
 on:
   push:
-    branches:
-      - release
+    branches: [release]
 
 jobs:
   release:
@@ -42,6 +41,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" > ~/.npmrc
           npm config set registry https://registry.npmjs.org
+          npm config set access public
           echo "NPM registry configured"
 
       - name: Verify npm authentication
