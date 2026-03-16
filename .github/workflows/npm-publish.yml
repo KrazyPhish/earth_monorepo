@@ -5,7 +5,7 @@ name: Release Version
 
 on:
   push:
-    branches: [ release ]
+    branches: [release]
 
 jobs:
   release:
@@ -13,7 +13,7 @@ jobs:
 
     env:
       CI: true
-      HUSKY: 0 
+      HUSKY: 0
 
     permissions:
       contents: write
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
-      
+
       - uses: pnpm/action-setup@v4
         with:
           version: 10.26.2
@@ -54,3 +54,5 @@ jobs:
           git add .
           git diff --cached --quiet || git commit --no-verify -m "chore(packages): version bump [skip ci]"
           git push origin release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
