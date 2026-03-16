@@ -27,6 +27,9 @@
   ],
   "sideEffects": false,
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@anstec/earth": "workspace: *",
     "vue": "^3.4.21"
