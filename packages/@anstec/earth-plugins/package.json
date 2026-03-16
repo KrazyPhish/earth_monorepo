@@ -1,7 +1,7 @@
 {
   "name": "@anstec/earth-plugins",
   "author": "KrazyPhish",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "pnpm release && pnpm type",
