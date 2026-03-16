@@ -14,6 +14,7 @@ jobs:
     env:
       CI: true
       HUSKY: 0
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     permissions:
       contents: write
@@ -36,6 +37,25 @@ jobs:
           node-version: 24.12.0
           registry-url: https://registry.npmjs.org
 
+      - name: Configure npm authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
+          npm config set registry https://registry.npmjs.org
+          echo "NPM registry configured"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify npm authentication
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "Error: NPM_TOKEN is not set"
+            exit 1
+          fi
+          echo "NPM_TOKEN is set (length: ${#NPM_TOKEN})"
+          npm whoami --registry https://registry.npmjs.org || echo "Authentication check failed, will try to publish anyway"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Install Dependencies
         run: pnpm ci:install
 
@@ -48,7 +68,7 @@ jobs:
       - name: Publish packages
         run: pnpm ci:publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit version bump
         run: |
