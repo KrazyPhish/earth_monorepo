@@ -3,6 +3,8 @@ name: Sync release bump to main
 on:
   push:
     branches: [release]
+    paths:
+      - "**/package.json"
 
 jobs:
   sync:
@@ -18,41 +20,67 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout release
+      - name: Checkout release branch
         uses: actions/checkout@v4
         with:
           token: ${{ github.token }}
           ref: release
           fetch-depth: 0
 
+      - name: Setup Git config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Create PR from release to main (skip CI)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh pr create \
-            --base main \
-            --head release \
-            --title "chore: sync release bump to main" \
-            --body "Sync version bump & changelog from release. [skip ci]" \
-            --label "auto-sync" \
-            || echo "PR already exists"
-
-      - name: Auto merge PR
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          PR_NUMBER=$(gh pr list \
+          echo "Checking if PR already exists..."
+          PR_EXISTS=$(gh pr list \
             --head release \
             --base main \
             --state open \
             --json number \
             --jq '.[0].number')
 
+          if [ -z "$PR_EXISTS" ]; then
+            echo "Creating new PR..."
+            gh pr create \
+              --base main \
+              --head release \
+              --title "chore: sync release bump to main" \
+              --body "Sync version bump & changelog from release branch. [skip ci]" \
+              --label "auto-sync" \
+              --assignee ${{ github.actor }}
+          else
+            echo "PR already exists: #$PR_EXISTS"
+          fi
+
+      - name: Auto merge PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Checking for open PRs..."
+          PR_NUMBER=$(gh pr list \
+            --head release \
+            --base main \
+            --state open \
+            --json number,title \
+            --jq '.[0].number')
+
           if [ -n "$PR_NUMBER" ]; then
+            echo "Found PR #$PR_NUMBER, attempting to merge..."
             gh pr merge "$PR_NUMBER" \
               --merge \
-              --auto \
-              --delete-branch=false
+              --subject "chore: sync release bump to main" \
+              --body "Automatically merged from release branch after version bump. [skip ci]"
           else
             echo "No PR to merge"
           fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Failed to sync version bump to main"
+          echo "Please manually create PR from release to main"

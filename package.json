@@ -10,7 +10,7 @@
     "changeset:publish": "changeset publish",
     "changeset:version": "changeset version",
     "ci:build": "pnpm build",
-    "ci:install": "pnpm install --lockfile-only",
+    "ci:install": "pnpm install --frozen-lockfile",
     "ci:publish": "pnpm changeset:publish",
     "ci:version": "pnpm changeset:version",
     "commit": "git-cz",
