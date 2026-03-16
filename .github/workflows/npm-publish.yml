@@ -5,7 +5,8 @@ name: Release Version
 
 on:
   push:
-    branches: [release]
+    branches:
+      - release
 
 jobs:
   release:
@@ -39,22 +40,19 @@ jobs:
 
       - name: Configure npm authentication
         run: |
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" > ~/.npmrc
           npm config set registry https://registry.npmjs.org
           echo "NPM registry configured"
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Verify npm authentication
         run: |
-          if [ -z "$NPM_TOKEN" ]; then
-            echo "Error: NPM_TOKEN is not set"
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "Error: NODE_AUTH_TOKEN is not set"
+            echo "Please configure NPM_TOKEN secret in GitHub repository settings"
             exit 1
           fi
-          echo "NPM_TOKEN is set (length: ${#NPM_TOKEN})"
+          echo "NODE_AUTH_TOKEN is set (length: ${#NODE_AUTH_TOKEN})"
           npm whoami --registry https://registry.npmjs.org || echo "Authentication check failed, will try to publish anyway"
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install Dependencies
         run: pnpm ci:install
@@ -67,8 +65,6 @@ jobs:
 
       - name: Publish packages
         run: pnpm ci:publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit version bump
         run: |
