@@ -28,14 +28,14 @@
   "sideEffects": false,
   "license": "MIT",
   "peerDependencies": {
-    "@anstec/earth": "workspace:^2.5.4",
+    "@anstec/earth": "workspace: *",
     "echarts": "^5.5.0"
   },
   "dependencies": {
-    "develop-utils": "workspace:*"
+    "develop-utils": "workspace: *"
   },
   "devDependencies": {
-    "@anstec/earth": "^2.5.4",
+    "@anstec/earth": "workspace: *",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^15.3.1",
     "@rollup/plugin-terser": "^0.4.4",

@@ -4,15 +4,13 @@ import {
   Cartographic,
   Math,
   SceneTransforms,
-  ScreenSpaceEventHandler,
-  ScreenSpaceEventType,
   type Camera,
   type Ellipsoid,
   type Scene,
 } from "cesium"
 import { Geographic } from "./Geographic"
 import { ScreenCapture } from "../../enum"
-import { deprecate, is, or, singleton, validate } from "develop-utils"
+import { is, or, singleton, validate } from "develop-utils"
 import type { Earth } from "../Earth"
 
 /**
@@ -27,62 +25,14 @@ import type { Earth } from "../Earth"
  */
 @singleton("Not necessary to create 'Coordinate', 'earth.coordinate' is available.")
 export class Coordinate {
-  #earth: Earth
   #scene: Scene
   #camera: Camera
   #ellipsoid: Ellipsoid
-  #handler?: ScreenSpaceEventHandler
 
   constructor(earth: Earth) {
-    this.#earth = earth
     this.#scene = earth.scene
     this.#camera = earth.camera
     this.#ellipsoid = earth.scene.globe.ellipsoid
-  }
-  //TODO remove the deprecations at v2.6.x
-
-  /**
-   * @description 开启鼠标实时获取坐标事件
-   * @param callback 回调函数
-   * @param [realtime = true] `true`为鼠标移动时实时获取，`false`为鼠标单击时获取
-   * @example
-   * ```
-   * coordinate.registerMouseCoordinate((data) => { console.log(data) }, true)
-   * ```
-   */
-  @deprecate("GlobalEvent.subscribe")
-  registerMouseCoordinate(callback: (data: Cartographic) => void, realtime: boolean = true) {
-    let eventType: ScreenSpaceEventType
-    this.#handler = new ScreenSpaceEventHandler(this.#scene.canvas)
-    if (realtime) {
-      eventType = ScreenSpaceEventType.MOUSE_MOVE
-    } else {
-      eventType = ScreenSpaceEventType.LEFT_CLICK
-      this.#earth.container.style.cursor = "crosshair"
-    }
-    this.#handler.setInputAction((e: ScreenSpaceEventHandler.MotionEvent | ScreenSpaceEventHandler.PositionedEvent) => {
-      const screen =
-        (e as ScreenSpaceEventHandler.MotionEvent).endPosition ||
-        (e as ScreenSpaceEventHandler.PositionedEvent).position
-      const coor = this.screenToCartesian(screen, ScreenCapture.TERRAIN)
-
-      if (coor) {
-        callback(this.cartesianToCartographic(coor))
-      }
-    }, eventType)
-  }
-
-  /**
-   * @description 销毁实时鼠标获取坐标事件
-   * @example
-   * ```
-   * coordinate.unregisterMouseCoordinate()
-   * ```
-   */
-  @deprecate()
-  unregisterMouseCoordinate() {
-    if (this.#handler) this.#handler.destroy()
-    this.#handler = undefined
   }
 
   /**

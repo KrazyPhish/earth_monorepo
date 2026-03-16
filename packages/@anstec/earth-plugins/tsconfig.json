@@ -2,7 +2,11 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "types": []
+    "types": [],
+    "paths": {
+      "@anstec/earth": ["./node_modules/@anstec/earth/src/index.ts"],
+      "develop-utils": ["./node_modules/develop-utils/src/index.ts"]
+    }
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "@anstec/earth", "develop-utils"]
 }

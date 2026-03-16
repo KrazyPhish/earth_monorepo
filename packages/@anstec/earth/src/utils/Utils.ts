@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-invalid-this */
-import { except, moreThan, is, lessThan, validate, freeze, deprecate } from "develop-utils"
+import { except, moreThan, is, lessThan, validate, freeze } from "develop-utils"
 import { CoorFormat } from "../enum"
 
 const separator = "Ω"
@@ -8,47 +8,6 @@ const { abs, floor, random } = Math
 
 @freeze
 export class Utils {
-  //TODO delete deprecations at v2.6.x
-  /**
-   * @deprecated
-   */
-  @deprecate("uuid")
-  static RandomUUID(symbol: string = "-") {
-    return this.uuid(symbol)
-  }
-
-  /**
-   * @deprecated
-   */
-  @deprecate("encode")
-  static EncodeId(id: string, module?: string) {
-    return this.encode(id, module)
-  }
-
-  /**
-   * @deprecated
-   */
-  @deprecate("decode")
-  static DecodeId(id: string) {
-    return this.decode(id)
-  }
-
-  /**
-   * @deprecated
-   */
-  @deprecate("convertPic2Canvas")
-  static ConvertPic2Canvas(pic: string, width?: number, height?: number) {
-    return this.convertPic2Canvas(pic, width, height)
-  }
-
-  /**
-   * @deprecated
-   */
-  @deprecate("convertSvg2Canvas")
-  static ConvertSvg2Canvas(svg: string, width?: number, height?: number) {
-    return this.convertPic2Canvas(svg, width, height)
-  }
-
   /**
    * @description 获取随机ID
    * @param [symbol = "-"] 连接符

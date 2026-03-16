@@ -1,0 +1,58 @@
+name: Sync release bump to main
+
+on:
+  push:
+    branches: [ release ]
+
+jobs:
+  sync:
+    if: contains(github.event.head_commit.message, 'version bump')
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+      HUSKY: 0 
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          ref: release
+          fetch-depth: 0
+
+      - name: Create PR from release to main (skip CI)
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head release \
+            --title "chore: sync release bump to main" \
+            --body "Sync version bump & changelog from release. [skip ci]" \
+            --label "auto-sync" \
+            || echo "PR already exists"
+
+      - name: Auto merge PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list \
+            --head release \
+            --base main \
+            --state open \
+            --json number \
+            --jq '.[0].number')
+
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr merge "$PR_NUMBER" \
+              --merge \
+              --auto \
+              --delete-branch=false
+          else
+            echo "No PR to merge"
+          fi

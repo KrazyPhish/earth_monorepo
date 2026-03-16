@@ -1,5 +1,6 @@
 {
   "name": "develop-utils",
+  "private": true,
   "author": "KrazyPhish",
   "version": "1.0.0",
   "type": "module",

@@ -1,5 +1,6 @@
 {
   "name": "build-utils",
+  "private": true,
   "author": "KrazyPhish",
   "version": "1.0.0",
   "main": "src/index.ts",

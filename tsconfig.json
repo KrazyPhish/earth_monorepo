@@ -6,6 +6,7 @@
     "lib": ["ESNext"],
     "declaration": false,
     "downlevelIteration": true,
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -19,10 +20,6 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "experimentalDecorators": true,
-    "paths": {
-      "@anstec/earth": ["/packages/@anstec/earth/src/index.ts"],
-      "develop-utils": ["/packages/develop-utils/src/index.ts"]
-    }
   },
   "exclude": ["node_modules", "dist"],
 }

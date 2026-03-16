@@ -58,7 +58,7 @@ export default defineConfig(
   },
   {
     ignores,
-    files: ["apps/web/**/*.{ts,js,tsx,jsx,vue}", "packages/**/*.{ts,js,tsx,vue}"],
+    files: ["apps/**/*.{ts,js,tsx,jsx,vue}", "packages/**/*.{ts,js,tsx,vue}"],
     extends: [...pluginVue.configs["flat/recommended"], eslintConfigPrettier],
     languageOptions: { globals: { ...globals.browser } },
   },

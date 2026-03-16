@@ -2,7 +2,10 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "types": []
+    "types": [],
+    "paths": {
+      "develop-utils": ["./node_modules/develop-utils/src/index.ts"]
+    }
   },
   "include": ["src/**/*.ts", "develop-utils"]
 }

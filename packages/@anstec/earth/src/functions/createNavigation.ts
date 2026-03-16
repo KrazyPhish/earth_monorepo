@@ -2,7 +2,6 @@ import CesiumNavigation from "cesium-navigation-es6"
 import { Earth } from "../components/Earth"
 import { Camera, Rectangle } from "cesium"
 
-//TODO delete hooks at v2.6.x
 /**
  * fix bug of Rectangle.validate being private
  */
@@ -10,16 +9,6 @@ import { Camera, Rectangle } from "cesium"
 if (!Rectangle.validate && Rectangle._validate) {
   //@ts-expect-error fix
   Rectangle.validate = Rectangle._validate
-}
-
-/**
- * @deprecated use `createNavigation`, this will be deleted at next minor version
- */
-export const useNavigation = (earth: Earth, option?: CesiumNavigation.NavigationOptions) => {
-  console.warn(
-    "'useNavigation' is deprecated and will be removed at next minor version, use 'createNavigation' instead."
-  )
-  return createNavigation(earth, option)
 }
 
 /**

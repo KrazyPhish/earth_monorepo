@@ -62,16 +62,16 @@ export namespace Heatmap {
    * @property [maxScaleDenominator = 2000] 最大比例尺
    */
   export type ConstructorOptions = {
-    radius: number
-    spacingFactor: number
-    maxOpacity: number
-    minOpacity: number
-    blur: number
-    gradient: { [key: string]: string }
-    minCanvasSize: number
-    maxCanvasSize: number
-    minScaleDenominator: number
-    maxScaleDenominator: number
+    radius?: number
+    spacingFactor?: number
+    maxOpacity?: number
+    minOpacity?: number
+    blur?: number
+    gradient?: { [key: string]: string }
+    minCanvasSize?: number
+    maxCanvasSize?: number
+    minScaleDenominator?: number
+    maxScaleDenominator?: number
   }
 }
 
@@ -148,10 +148,10 @@ export class Heatmap implements Destroyable {
   #moveEndEvent?: () => void
   #additiveCameraHeight = 0
 
-  constructor(earth: Earth, options: Heatmap.ConstructorOptions) {
+  constructor(earth: Earth, options?: Heatmap.ConstructorOptions) {
     this._id = Utils.uuid()
     this.#earth = earth
-    this.#options = options
+    this.#options = options ?? {}
     this._rawData = { min: 0, max: 0, data: [] }
     this._dom = document.createElement("div")
     document.body.appendChild(this._dom)

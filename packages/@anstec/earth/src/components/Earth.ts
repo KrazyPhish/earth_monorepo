@@ -1,41 +1,26 @@
-/* eslint-disable no-empty-function */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AnimationViewModel,
   Camera,
   Cartesian2,
   Cartesian3,
-  Cartographic,
   Clock,
   ClockViewModel,
   Event,
   ImageryLayer,
   ImageryProvider,
   JulianDate,
-  Math as Czm_Math,
   Matrix4,
   Rectangle,
   Scene,
-  SceneMode,
   TerrainProvider,
   Viewer,
 } from "cesium"
-import {
-  extendComponentModel,
-  extendComponentView,
-  ComponentModel,
-  graphic,
-  matrix,
-  registerAction,
-  registerCoordinateSystem,
-  type CustomSeriesRenderItemAPI,
-} from "echarts"
 import { CameraTool, Utils } from "../utils"
 import { Coordinate } from "./coordinate"
 import { GraphicsLayer } from "./layers"
 import { DefaultContextMenuItem as MapMode } from "../enum"
 import { ImprovedAnimation, ImprovedScreenSpaceCameraController, ImprovedTimeline } from "../improved"
-import { welcome, generate, deprecate } from "develop-utils"
+import { welcome, generate } from "develop-utils"
 import type { Destroyable } from "../abstract"
 import { pkg } from "../config"
 import { earth } from "../images"
@@ -338,138 +323,6 @@ export class Earth implements Destroyable {
     if (animationTimeFormatter) this._viewer.animation.viewModel.timeFormatter = animationTimeFormatter
     //@ts-expect-error private attr read or use
     if (timelineFormatter) this._viewer.timeline.makeLabel = timelineFormatter
-  }
-
-  /**
-   * @description 使用Echarts插件并映射坐标系统
-   * 1. 该坐标系统跟随Cesium视角调整Echarts坐标
-   * 2. 该坐标系统由于Echarts限制，仅支持单实例
-   * 3. 对应视图需要开启Echarts插件时运行该方法
-   * 4. 其他Echarts图形实例也可加载，但不随视图更新位置
-   * @deprecated use `registerEChartsOverlay` from module `@anstec/earth-plugins`
-   */
-  @deprecate()
-  useEcharts() {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this
-    extendComponentModel({
-      type: "GLMap",
-      defaultOption: {
-        roam: false,
-      },
-    })
-
-    extendComponentView({
-      type: "GLMap",
-      init(_: any, api: CustomSeriesRenderItemAPI) {
-        //@ts-expect-error must use inner this
-        this.api = api
-        //@ts-expect-error must use inner this
-        self._scene.postRender.addEventListener(this.moveHandler, this)
-      },
-      moveHandler() {
-        //@ts-expect-error must use inner this
-        this.api.dispatchAction({ type: "GLMapRoam" })
-      },
-      render() {},
-      dispose() {
-        //@ts-expect-error  must use inner this
-        self._scene.postRender.removeEventListener(this.moveHandler, this)
-      },
-    })
-
-    class EarthCoordinateSystem {
-      static dimensions = ["lng", "lat"]
-      dimensions = ["lng", "lat"]
-      scene: Scene
-      mapOffset = [0, 0]
-      api: CustomSeriesRenderItemAPI
-      constructor(scene: Scene, api: CustomSeriesRenderItemAPI) {
-        this.scene = scene
-        this.api = api
-      }
-
-      static create(globalModel: any, api: CustomSeriesRenderItemAPI) {
-        let coordSys: EarthCoordinateSystem
-        globalModel.eachComponent("GLMap", (earthModel: ComponentModel) => {
-          coordSys = new EarthCoordinateSystem(self._scene, api)
-          //@ts-expect-error private attr read
-          coordSys.setMapOffset(earthModel.__mapOffset || [0, 0])
-          //@ts-expect-error private attr read
-          earthModel.coordinateSystem = coordSys
-        })
-
-        globalModel.eachSeries((seriesModel: any) => {
-          if (seriesModel.get("coordinateSystem") === "GLMap") {
-            seriesModel.coordinateSystem = coordSys
-          }
-        })
-      }
-
-      setMapOffset(offset: number[]) {
-        this.mapOffset = [...offset]
-      }
-
-      getEarthMap() {
-        return this.scene
-      }
-
-      /**
-       * @description 数据坐标转坐标点
-       * @param data 坐标
-       */
-      dataToPoint(data: number[]) {
-        const maxRadians = Czm_Math.toRadians(80)
-        const position = Cartesian3.fromDegrees(data[0], data[1])
-        if (!position) return [undefined, undefined]
-        const canvasCoordinate = this.scene.cartesianToCanvasCoordinates(position)
-        if (!canvasCoordinate) return [undefined, undefined]
-        if (
-          this.scene.mode === SceneMode.SCENE3D &&
-          Cartesian3.angleBetween(this.scene.camera.position, position) > maxRadians
-        ) {
-          return [undefined, undefined]
-        }
-        return [canvasCoordinate.x - this.mapOffset[0], canvasCoordinate.y - this.mapOffset[1]]
-      }
-
-      /**
-       * @description 坐标点转数据坐标
-       * @param point 点
-       */
-      pointToData(point: number[]) {
-        const pt = new Cartesian2(point[0] + this.mapOffset[0], point[1] + this.mapOffset[1])
-        const cartesian = this.scene.pickPosition(pt)
-        if (!cartesian) return [undefined, undefined]
-        const carto = Cartographic.fromCartesian(cartesian)
-        return [carto.longitude, carto.latitude]
-      }
-
-      /**
-       * @description 获取视窗
-       * @returns 视窗
-       */
-      getViewRect(): graphic.BoundingRect {
-        const rect = new graphic.BoundingRect(0, 0, this.api.getWidth(), this.api.getHeight())
-        return rect
-      }
-
-      getRoamTransform() {
-        return matrix.create()
-      }
-    }
-
-    //@ts-expect-error custom class type
-    registerCoordinateSystem("GLMap", EarthCoordinateSystem)
-
-    registerAction(
-      {
-        type: "GLMapRoam",
-        event: "GLMapRoam",
-        update: "updateLayout",
-      },
-      () => {}
-    )
   }
 
   /**

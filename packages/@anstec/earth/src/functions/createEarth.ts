@@ -12,19 +12,6 @@ import { Earth } from "../components/Earth"
 const earthCache = new Map<string, Earth>()
 
 /**
- * @deprecated use `createEarth`, this will be deleted at next minor version
- */
-export const useEarth = (
-  id?: string,
-  ref?: string | HTMLDivElement | Viewer,
-  cesiumOptions?: Viewer.ConstructorOptions,
-  options?: Earth.ConstructorOptions
-) => {
-  console.warn("'useEarth' is deprecated and will be removed at next minor version, use 'createEarth' instead.")
-  return createEarth(id, ref, cesiumOptions, options)
-}
-
-/**
  * @description 初始化地球
  * @param [id = "GisContainer"] 当前地球的ID
  * @param [ref = "GisContainer"] 容器ID / 容器实例 / Viewer实例
@@ -76,14 +63,6 @@ export const createEarth = (
   )
   earthCache.set(el, earth)
   return earth
-}
-
-/**
- * @deprecated use `recycleEarth`, this will be deleted at next minor version
- */
-export const useEarthRecycle = (id?: string) => {
-  console.warn("'useEarthRecycle' is deprecated and will be removed at next minor version, use 'recycleEarth' instead.")
-  return recycleEarth(id)
 }
 
 /**

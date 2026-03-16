@@ -1,0 +1,34 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "paths": {
+      "@/*": ["./src/*"],
+      "@anstec/earth": ["./node_modules/@anstec/earth/src/index.ts"],
+      "@anstec/earth-plugins": ["./node_modules/@anstec/earth-plugins/src/index.ts"],
+      "@anstec/earth-react": ["./node_modules/@anstec/earth-react/src/index.ts"],
+    },
+  },
+  "include": ["./src/**/*", "./build/**/*", "./global.d.ts"],
+  "exclude": ["node_modules"]
+}

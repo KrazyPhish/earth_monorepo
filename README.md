@@ -1,15 +1,17 @@
 ## earth_monorepo
 
 ### Basic construction
-
-packages/ -sources  
- ├─@anstec/  
- │ ├─earth/ -simpler module for gis based on cesium  
- │ ├─earth-plugins/ -plugins for earth  
- │ ├─earth-react/ -react hooks for earth  
- │ └─earth-vue/ -vue hooks for earth  
- ├─build-utils/ -shared rollup configs  
- └─develop-utils/ -decorators: validator and funtional
+earth_monorepo  
+ ├─apps/  
+ │  └─demo-react/ -react demo for earth, show basic use of earth module  
+ └─packages/ -sources  
+    ├─@anstec/  
+    │ ├─earth/ -simpler module for gis based on cesium  
+    │ ├─earth-plugins/ -plugins for earth  
+    │ ├─earth-react/ -react hooks for earth  
+    │ └─earth-vue/ -vue hooks for earth  
+    ├─build-utils/ -shared rollup configs  
+    └─develop-utils/ -decorators: validator and funtional
 
 ### Quick start
 

@@ -1,5 +1,7 @@
 # cspell-tools
 anstec
+Arrayable
+Avenir
 bbox
 carto
 Coef
@@ -11,22 +13,29 @@ echart
 fnames
 fract
 Gltf
+gstime
+Inexistable
 kdbush
 krazyphish
 Kutta
 lerp
 Lnglats
 nauticalmiles
+netcdfjs
 Occluder
 onwarn
 phong
+Promisable
 radi
 rrggbbaa
+satrec
 setzoom
 Shallowable
+Sider
 Sqrd
 Tileset
 tweens
+twoline
 unproject
 worldspace
 xlink
