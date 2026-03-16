@@ -38,6 +38,9 @@
     "map"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "cesium": "^1.130.0"
   },
