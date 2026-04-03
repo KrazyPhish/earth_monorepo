@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "types": [],
+    "paths": {
+      "@krazyphish/earth": ["./node_modules/@krazyphish/earth/src/index.ts"],
+      "develop-utils": ["./node_modules/develop-utils/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "@krazyphish/earth", "develop-utils"]
+}

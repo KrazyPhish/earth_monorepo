@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useImageryProvider } from "@/hooks"
-import { useEarth, useParticleLayer } from "@anstec/earth-react"
+import { useEarth, useParticleLayer } from "@krazyphish/earth-react"
 import { Space, Card, Typography, Slider } from "@arco-design/web-react"
 import { Cartesian3, Math } from "cesium"
 import { useEffect, useMemo, useRef, useState, type FC } from "react"

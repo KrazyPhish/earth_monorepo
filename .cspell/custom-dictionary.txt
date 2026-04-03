@@ -1,5 +1,4 @@
 # cspell-tools
-anstec
 Arrayable
 Avenir
 bbox

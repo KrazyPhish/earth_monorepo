@@ -1,4 +1,4 @@
-import type { Earth } from "@anstec/earth"
+import type { Earth } from "@krazyphish/earth"
 import { ArcGISTiledElevationTerrainProvider } from "cesium"
 import { useEffect, type RefObject } from "react"
 

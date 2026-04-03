@@ -1,6 +1,6 @@
 # Earth演示示例项目
 
-版本包发布在[@anstec/earth](https://www.npmjs.com/package/@anstec/earth).
+版本包发布在[@krazyphish/earth](https://www.npmjs.com/package/@krazyphish/earth).
 
 ## Project Setup
 

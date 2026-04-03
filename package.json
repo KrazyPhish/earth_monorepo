@@ -24,7 +24,7 @@
     "test:watch": "vitest --watch",
     "test:ci": "vitest run --coverage",
     "test:core": "pnpm vitest run --project develop-utils",
-    "test:pkg": "pnpm vitest run --project @anstec/earth"
+    "test:pkg": "pnpm vitest run --project @krazyphish/earth"
   },
   "config": {
     "commitizen": {

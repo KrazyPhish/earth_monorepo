@@ -1,5 +1,5 @@
 import { useImageryProvider, useTerrainProvider } from "@/hooks"
-import { useEarth, useModelLayer } from "@anstec/earth-react"
+import { useEarth, useModelLayer } from "@krazyphish/earth-react"
 import { Cartesian3, DistanceDisplayCondition, HeadingPitchRoll, Math } from "cesium"
 import { useEffect, useRef, type FC } from "react"
 

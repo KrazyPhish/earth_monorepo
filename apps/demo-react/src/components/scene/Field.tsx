@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useImageryProvider } from "@/hooks"
-import type { WindField } from "@anstec/earth"
-import { useEarth, useWindField } from "@anstec/earth-react"
+import type { WindField } from "@krazyphish/earth"
+import { useEarth, useWindField } from "@krazyphish/earth-react"
 import { NetCDFReader } from "netcdfjs"
 import { useRef, type FC } from "react"
 

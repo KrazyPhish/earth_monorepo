@@ -24,9 +24,9 @@
 
     "paths": {
       "@/*": ["./src/*"],
-      "@anstec/earth": ["./node_modules/@anstec/earth/src/index.ts"],
-      "@anstec/earth-plugins": ["./node_modules/@anstec/earth-plugins/src/index.ts"],
-      "@anstec/earth-react": ["./node_modules/@anstec/earth-react/src/index.ts"],
+      "@krazyphish/earth": ["./node_modules/@krazyphish/earth/src/index.ts"],
+      "@krazyphish/earth-plugins": ["./node_modules/@krazyphish/earth-plugins/src/index.ts"],
+      "@krazyphish/earth-react": ["./node_modules/@krazyphish/earth-react/src/index.ts"],
     },
   },
   "include": ["./src/**/*", "./build/**/*", "./global.d.ts"],

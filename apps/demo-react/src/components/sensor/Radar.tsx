@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { ConicMode } from "@anstec/earth"
-import { useEarth, useSensor } from "@anstec/earth-react"
+import { ConicMode } from "@krazyphish/earth"
+import { useEarth, useSensor } from "@krazyphish/earth-react"
 import { Space, Card, Typography, Slider } from "@arco-design/web-react"
 import { Cartesian3, HeadingPitchRoll, Math, Matrix4, Transforms, type Primitive } from "cesium"
 import { useEffect, useRef, useState, type FC } from "react"

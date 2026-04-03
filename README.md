@@ -5,7 +5,7 @@ earth_monorepo
  ├─apps/  
  │  └─demo-react/ -react demo for earth, show basic use of earth module  
  └─packages/ -sources  
-    ├─@anstec/  
+    ├─@krazyphish/  
     │ ├─earth/ -simpler module for gis based on cesium  
     │ ├─earth-plugins/ -plugins for earth  
     │ ├─earth-react/ -react hooks for earth  

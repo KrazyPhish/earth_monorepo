@@ -15,8 +15,8 @@ export default defineConfig({
       {
         test: {
           globals: true,
-          name: "@anstec/earth",
-          include: ["packages/@anstec/earth/test/**/*.{test,spec}.ts"],
+          name: "@krazyphish/earth",
+          include: ["packages/@krazyphish/earth/test/**/*.{test,spec}.ts"],
           environment: "jsdom",
         },
         resolve: {

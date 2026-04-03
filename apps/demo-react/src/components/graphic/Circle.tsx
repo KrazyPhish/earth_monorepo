@@ -1,5 +1,5 @@
 import { useImageryProvider, useTerrainProvider } from "@/hooks"
-import { useEarth, useEllipseLayer } from "@anstec/earth-react"
+import { useEarth, useEllipseLayer } from "@krazyphish/earth-react"
 import { Space, Switch, Typography } from "@arco-design/web-react"
 import { Cartesian3, Math } from "cesium"
 import { useEffect, useRef, useState, type FC } from "react"

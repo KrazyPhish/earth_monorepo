@@ -1,0 +1,55 @@
+{
+  "name": "@krazyphish/earth-react",
+  "author": "KrazyPhish",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm release && pnpm type",
+    "clean": "rimraf -rf dist/",
+    "release": "pnpm clean && rollup -c rollup.config.ts --bundleConfigAsCjs",
+    "type": "ts-node ./scripts/build.ts"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist",
+    "HISTORY.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@krazyphish/earth": "workspace: *",
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@krazyphish/earth": "workspace: *",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^15.3.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.14.15",
+    "@types/react": "^19.1.8",
+    "build-utils": "workspace: *",
+    "cesium": "^1.130.1",
+    "react": "^19.1.0",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.44.1",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

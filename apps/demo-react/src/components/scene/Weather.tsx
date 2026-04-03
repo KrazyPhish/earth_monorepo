@@ -1,5 +1,5 @@
 import { useImageryProvider } from "@/hooks"
-import { useEarth, useWeather } from "@anstec/earth-react"
+import { useEarth, useWeather } from "@krazyphish/earth-react"
 import { Card, Space, Switch, Typography } from "@arco-design/web-react"
 import { Cartesian3 } from "cesium"
 import { memo, useEffect, useRef, useState, type FC } from "react"

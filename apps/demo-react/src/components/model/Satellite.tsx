@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { Geographic, type Earth } from "@anstec/earth"
-import { useAnimationManager, useEarth, usePolylineLayer } from "@anstec/earth-react"
+import { Geographic, type Earth } from "@krazyphish/earth"
+import { useAnimationManager, useEarth, usePolylineLayer } from "@krazyphish/earth-react"
 import { Cartesian3, ClockRange, Color, JulianDate, PolylineGlowMaterialProperty } from "cesium"
 import { useEffect, useRef, type FC } from "react"
 import { eciToEcf, gstime, propagate, twoline2satrec, type SatRec } from "satellite.js"

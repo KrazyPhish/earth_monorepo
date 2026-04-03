@@ -1,5 +1,5 @@
 import { useImageryProvider } from "@/hooks"
-import { useBillboardLayer, useEarth } from "@anstec/earth-react"
+import { useBillboardLayer, useEarth } from "@krazyphish/earth-react"
 import { Cartesian2, Cartesian3, HorizontalOrigin, Math, VerticalOrigin } from "cesium"
 import { useEffect, useRef, type FC } from "react"
 

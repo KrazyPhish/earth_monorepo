@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { Geographic, Utils } from "@anstec/earth"
-import { useCluster, useEarth } from "@anstec/earth-react"
+import { Geographic, Utils } from "@krazyphish/earth"
+import { useCluster, useEarth } from "@krazyphish/earth-react"
 import {
   Cartesian2,
   Cartesian3,
