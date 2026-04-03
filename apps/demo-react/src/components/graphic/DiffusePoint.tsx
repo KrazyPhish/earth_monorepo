@@ -1,5 +1,5 @@
 import { useImageryProvider } from "@/hooks"
-import { useDiffusePointLayer, useEarth } from "@anstec/earth-react"
+import { useDiffusePointLayer, useEarth } from "@krazyphish/earth-react"
 import { Cartesian3, Color } from "cesium"
 import { useEffect, useRef, type FC } from "react"
 

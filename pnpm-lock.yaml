@@ -77,21 +77,21 @@ importers:
 
   apps/demo-react:
     dependencies:
-      '@anstec/earth':
-        specifier: 'workspace: *'
-        version: link:../../packages/@anstec/earth
-      '@anstec/earth-plugins':
-        specifier: 'workspace: *'
-        version: link:../../packages/@anstec/earth-plugins
-      '@anstec/earth-react':
-        specifier: 'workspace: *'
-        version: link:../../packages/@anstec/earth-react
       '@arco-design/web-react':
         specifier: ^2.66.1
         version: 2.66.9(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@krazyphish/earth':
+        specifier: 'workspace: *'
+        version: link:../../packages/@krazyphish/earth
+      '@krazyphish/earth-plugins':
+        specifier: 'workspace: *'
+        version: link:../../packages/@krazyphish/earth-plugins
+      '@krazyphish/earth-react':
+        specifier: 'workspace: *'
+        version: link:../../packages/@krazyphish/earth-react
       '@turf/turf':
-        specifier: ^7.2.0
-        version: 7.3.2
+        specifier: ^6.5.0
+        version: 6.5.0
       cesium:
         specifier: ^1.129.0
         version: 1.137.0
@@ -163,11 +163,11 @@ importers:
         specifier: ^6.0.4
         version: 6.0.4(typescript@5.8.3)(vite@6.4.1(@types/node@25.0.9)(jiti@2.6.1)(sass-embedded@1.97.2)(sass@1.97.2)(terser@5.46.0)(yaml@2.8.2))
 
-  packages/@anstec/earth:
+  packages/@krazyphish/earth:
     dependencies:
       '@turf/turf':
-        specifier: ^6.5.0
-        version: 6.5.0
+        specifier: ^7.2.0
+        version: 7.3.2
       cesium-navigation-es6:
         specifier: ^3.0.9
         version: 3.0.9
@@ -199,6 +199,9 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.8
+      '@types/geojson':
+        specifier: ^7946.0.16
+        version: 7946.0.16
       '@types/node':
         specifier: ^20.14.15
         version: 20.19.30
@@ -236,13 +239,13 @@ importers:
         specifier: ~5.4.0
         version: 5.4.5
 
-  packages/@anstec/earth-plugins:
+  packages/@krazyphish/earth-plugins:
     dependencies:
       develop-utils:
         specifier: 'workspace: *'
         version: link:../../develop-utils
     devDependencies:
-      '@anstec/earth':
+      '@krazyphish/earth':
         specifier: 'workspace: *'
         version: link:../earth
       '@rollup/plugin-commonjs':
@@ -288,9 +291,9 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
 
-  packages/@anstec/earth-react:
+  packages/@krazyphish/earth-react:
     devDependencies:
-      '@anstec/earth':
+      '@krazyphish/earth':
         specifier: 'workspace: *'
         version: link:../earth
       '@rollup/plugin-commonjs':
@@ -339,10 +342,10 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
 
-  packages/@anstec/earth-vue:
+  packages/@krazyphish/earth-vue:
     devDependencies:
-      '@anstec/earth':
-        specifier: '^workspace: *'
+      '@krazyphish/earth':
+        specifier: 'workspace: *'
         version: link:../earth
       '@rollup/plugin-commonjs':
         specifier: ^28.0.2
@@ -11053,7 +11056,7 @@ snapshots:
 
   geojson-rbush@3.2.0:
     dependencies:
-      '@turf/bbox': 6.5.0
+      '@turf/bbox': 7.3.2
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
       '@types/geojson': 7946.0.8

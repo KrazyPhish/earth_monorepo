@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useImageryProvider } from "@/hooks"
-import { DefaultContextMenuItem, type ContextMenu } from "@anstec/earth"
-import { useContextMenu, useEarth } from "@anstec/earth-react"
+import { DefaultContextMenuItem, type ContextMenu } from "@krazyphish/earth"
+import { useContextMenu, useEarth } from "@krazyphish/earth-react"
 import { Space, Card, Typography } from "@arco-design/web-react"
 import { useEffect, useRef, type FC } from "react"
 

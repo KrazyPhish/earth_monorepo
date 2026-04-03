@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { Earth } from "@anstec/earth"
-import { useEarth } from "@anstec/earth-react"
+import { Earth } from "@krazyphish/earth"
+import { useEarth } from "@krazyphish/earth-react"
 import { Cartesian3, JulianDate, ClockRange, ClockStep, Math } from "cesium"
 import { useEffect, useRef, type FC } from "react"
 

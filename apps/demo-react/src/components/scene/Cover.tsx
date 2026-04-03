@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { GlobalEventType } from "@anstec/earth"
-import { useCovering, useEarth, useGlobalEvent, usePointLayer } from "@anstec/earth-react"
+import { GlobalEventType } from "@krazyphish/earth"
+import { useCovering, useEarth, useGlobalEvent, usePointLayer } from "@krazyphish/earth-react"
 import { Space, Switch, Typography } from "@arco-design/web-react"
 import { Cartesian3, Color } from "cesium"
 import { useEffect, useRef, useState, type FC } from "react"

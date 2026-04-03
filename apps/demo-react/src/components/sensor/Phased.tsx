@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { type PhasedSensorPrimitive, ScanMode } from "@anstec/earth"
-import { useEarth, useSensor } from "@anstec/earth-react"
+import { type PhasedSensorPrimitive, ScanMode } from "@krazyphish/earth"
+import { useEarth, useSensor } from "@krazyphish/earth-react"
 import { Space, Card, Typography, Slider } from "@arco-design/web-react"
 import { Cartesian3, HeadingPitchRoll, Math, Transforms } from "cesium"
 import { useEffect, useRef, useState, type FC } from "react"

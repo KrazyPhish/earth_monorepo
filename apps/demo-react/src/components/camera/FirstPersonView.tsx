@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { Geographic, ViewAngle } from "@anstec/earth"
-import { useEarth, useModelLayer } from "@anstec/earth-react"
+import { Geographic, ViewAngle } from "@krazyphish/earth"
+import { useEarth, useModelLayer } from "@krazyphish/earth-react"
 import { DistanceDisplayCondition, HeadingPitchRoll } from "cesium"
 import { useEffect, useRef, type FC } from "react"
 

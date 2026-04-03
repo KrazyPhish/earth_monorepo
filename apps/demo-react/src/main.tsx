@@ -5,7 +5,7 @@ import App from "./App.js"
 import "./index.css"
 import "uno.css"
 import "@arco-design/web-react/dist/css/arco.css"
-// import "@anstec/earth/dist/style.css"
+// import "@krazyphish/earth/dist/style.css"
 import "@arco-design/web-react/es/_util/react-19-adapter"
 
 createRoot(document.getElementById("root")!).render(

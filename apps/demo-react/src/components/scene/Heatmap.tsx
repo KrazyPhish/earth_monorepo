@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import type { Heatmap } from "@anstec/earth"
-import { useEarth, useHeatmap } from "@anstec/earth-react"
+import type { Heatmap } from "@krazyphish/earth"
+import { useEarth, useHeatmap } from "@krazyphish/earth-react"
 import { useEffect, useRef, type FC } from "react"
 
 const HeatmapComp: FC = () => {

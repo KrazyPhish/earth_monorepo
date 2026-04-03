@@ -10,11 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@anstec/earth": "workspace: *",
-    "@anstec/earth-plugins": "workspace: *",
-    "@anstec/earth-react": "workspace: *",
+    "@krazyphish/earth": "workspace: *",
+    "@krazyphish/earth-plugins": "workspace: *",
+    "@krazyphish/earth-react": "workspace: *",
     "@arco-design/web-react": "^2.66.1",
-    "@turf/turf": "^7.2.0",
+    "@turf/turf": "^6.5.0",
     "cesium": "^1.129.0",
     "echarts": "^5.6.0",
     "netcdfjs": "^3.0.0",

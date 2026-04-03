@@ -1,7 +1,7 @@
 import { type FC, useRef, useEffect, useMemo } from "react"
 import { useImageryProvider } from "./hooks"
-import { useEarth } from "@anstec/earth-react"
-import { registerEChartsOverlay, EChartsOverlay } from "@anstec/earth-plugins"
+import { useEarth } from "@krazyphish/earth-react"
+import { registerEChartsOverlay, EChartsOverlay } from "@krazyphish/earth-plugins"
 import { Color } from "cesium"
 import type { EChartsOption } from "echarts"
 

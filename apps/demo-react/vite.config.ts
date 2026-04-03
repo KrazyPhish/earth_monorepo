@@ -16,9 +16,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
-        "@anstec/earth": path.resolve(__dirname, "./node_modules/@anstec/earth/src/index.ts"),
-        "@anstec/earth-plugins": path.resolve(__dirname, "./node_modules/@anstec/earth-plugins/src/index.ts"),
-        "@anstec/earth-react": path.resolve(__dirname, "./node_modules/@anstec/earth-react/src/index.ts"),
+        "@krazyphish/earth": path.resolve(__dirname, "./node_modules/@krazyphish/earth/src/index.ts"),
+        "@krazyphish/earth-plugins": path.resolve(__dirname, "./node_modules/@krazyphish/earth-plugins/src/index.ts"),
+        "@krazyphish/earth-react": path.resolve(__dirname, "./node_modules/@krazyphish/earth-react/src/index.ts"),
       },
     },
     server: {

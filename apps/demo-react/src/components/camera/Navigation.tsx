@@ -1,6 +1,6 @@
 import { useImageryProvider } from "@/hooks"
-import { createNavigation } from "@anstec/earth"
-import { useEarth } from "@anstec/earth-react"
+import { createNavigation } from "@krazyphish/earth"
+import { useEarth } from "@krazyphish/earth-react"
 import { useEffect, useRef, type FC } from "react"
 
 const Navigation: FC = () => {
