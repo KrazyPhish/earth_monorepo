@@ -20,7 +20,7 @@ import {
   type Scene,
   type Viewer,
 } from "cesium"
-import { singleton, generate, enumerable } from "develop-utils"
+import { singleton, generate, enumerable } from "@krazyphish/develop-utils"
 import { CameraTool, Utils, State, Figure } from "../../utils"
 import { Draw, ProtoDraw } from "../draw"
 import { DrawType } from "../../enum"

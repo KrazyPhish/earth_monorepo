@@ -10,7 +10,7 @@ import {
   WebMercatorProjection,
   WebMercatorTilingScheme,
 } from "cesium"
-import { enumerable, generate, singleton } from "develop-utils"
+import { enumerable, generate, singleton } from "@krazyphish/develop-utils"
 import { H337 } from "./H337"
 import { Utils } from "../../utils"
 import type { Earth } from "../Earth"

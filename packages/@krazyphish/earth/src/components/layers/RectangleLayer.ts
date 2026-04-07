@@ -15,7 +15,7 @@ import {
   RectangleGeometry,
   VerticalOrigin,
 } from "cesium"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer, Outlined } from "../../abstract"
 import { PolylineLayer } from "./PolylineLayer"

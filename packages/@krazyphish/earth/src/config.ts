@@ -2,5 +2,5 @@
 export const pkg = {
   name: "@krazyphish/earth",
   author: "KrazyPhish",
-  version: "2.6.0",
+  version: "1.0.2",
 } as const

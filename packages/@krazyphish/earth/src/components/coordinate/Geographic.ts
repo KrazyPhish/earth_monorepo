@@ -1,7 +1,7 @@
 import { Cartesian3, Cartographic, Ellipsoid, Math as CzmMath } from "cesium"
 import { Utils } from "../../utils"
 import { CoorFormat } from "../../enum"
-import { validate, moreThan, is, multipleOf, lessThan, positive, constant } from "develop-utils"
+import { validate, moreThan, is, multipleOf, lessThan, positive, constant } from "@krazyphish/develop-utils"
 
 const { abs } = Math
 

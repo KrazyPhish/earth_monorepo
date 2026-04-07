@@ -14,7 +14,7 @@ import {
   type Scene,
 } from "cesium"
 import { conicSensorWave } from "../../shaders"
-import { is, generate, validate, enumerable } from "develop-utils"
+import { is, generate, validate, enumerable } from "@krazyphish/develop-utils"
 import { Figure, Utils } from "../../utils"
 import { PhasedSensorPrimitive } from "./PhasedSensorPrimitive"
 import { ScanMode, ConicMode } from "../../enum"

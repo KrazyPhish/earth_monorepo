@@ -22,7 +22,7 @@ import {
 import { Geographic } from "../coordinate"
 import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer } from "../../abstract"
-import { enumerable, generate, is, validate } from "develop-utils"
+import { enumerable, generate, is, validate } from "@krazyphish/develop-utils"
 import { polygon, union, featureCollection } from "@turf/turf"
 import type { Feature, MultiPolygon, Polygon } from "geojson"
 import { Utils, Figure } from "../../utils"

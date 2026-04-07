@@ -10,7 +10,7 @@ import {
   type Scene,
   type Viewer,
 } from "cesium"
-import { is, generate, validate, enumerable } from "develop-utils"
+import { is, generate, validate, enumerable } from "@krazyphish/develop-utils"
 import { Destroyable } from "../../abstract"
 import { Utils } from "../../utils"
 import type { Earth } from "../Earth"

@@ -10,7 +10,7 @@ import {
   type ModelGraphics,
   type PathGraphics,
 } from "cesium"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import { Utils } from "../../utils"
 
 export namespace Animation {

@@ -21,7 +21,7 @@ npm install @krazyphish/earth
 ```ts
 // in your main.ts or main.tsx
 // import the style sheet
-import "@krazyphish/earth/dist/style.css"
+import "@krazyphish/earth/style.css"
 ```
 
 ```ts

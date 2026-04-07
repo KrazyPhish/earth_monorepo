@@ -1,4 +1,4 @@
-declare module "develop-utils" {
+declare module "@krazyphish/develop-utils" {
   export type Attribute = {
     name: string | symbol
     value: any

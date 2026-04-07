@@ -9,7 +9,7 @@ import {
   WallOutlineGeometry,
   type Cartesian3,
 } from "cesium"
-import { is, validate } from "develop-utils"
+import { is, validate } from "@krazyphish/develop-utils"
 import { Layer } from "../../abstract"
 import { Utils } from "../../utils"
 import type { Earth } from "../Earth"

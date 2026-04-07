@@ -11,7 +11,7 @@ import {
 import { EventBus } from "../components/bus"
 import { DrawType, SubEventType } from "../enum"
 import { State, CameraTool } from "../utils"
-import { enumerable, generate } from "develop-utils"
+import { enumerable, generate } from "@krazyphish/develop-utils"
 import type {
   BillboardLayer,
   EllipseLayer,

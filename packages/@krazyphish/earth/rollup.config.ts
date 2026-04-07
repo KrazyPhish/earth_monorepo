@@ -22,7 +22,7 @@ writeFileSync("./src/config.ts", configInfo)
 
 const config = defineRollupConfig({
   input: "src/index.ts",
-  external: ["cesium", "echarts"],
+  external: ["cesium"],
   mainName: packageJson.main,
   moduleName: packageJson.module,
   plugins: [

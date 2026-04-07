@@ -5,8 +5,8 @@
     "types": [],
     "paths": {
       "@krazyphish/earth": ["./node_modules/@krazyphish/earth/src/index.ts"],
-      "develop-utils": ["./node_modules/develop-utils/src/index.ts"]
+      "@krazyphish/develop-utils": ["./node_modules/@krazyphish/develop-utils/src/index.ts"]
     }
   },
-  "include": ["src/**/*.ts", "@krazyphish/earth", "develop-utils"]
+  "include": ["src/**/*.ts", "@krazyphish/earth", "@krazyphish/develop-utils"]
 }

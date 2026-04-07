@@ -1,6 +1,6 @@
 import { type Viewer, type Scene, type Camera, Cartesian3, Color, Ellipsoid, EllipsoidalOccluder } from "cesium"
 import { Utils } from "../../utils"
-import { is, generate, validate } from "develop-utils"
+import { is, generate, validate } from "@krazyphish/develop-utils"
 import { Destroyable, DestroyControl } from "../../abstract"
 import type { Earth } from "../Earth"
 

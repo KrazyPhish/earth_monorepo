@@ -11,7 +11,7 @@ earth_monorepo
     │ ├─earth-react/ -react hooks for earth  
     │ └─earth-vue/ -vue hooks for earth  
     ├─build-utils/ -shared rollup configs  
-    └─develop-utils/ -decorators: validator and funtional
+    └─@krazyphish/develop-utils/ -decorators: validator and funtional
 
 ### Quick start
 

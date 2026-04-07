@@ -1,4 +1,4 @@
-import { enumerable, generate, singleton } from "develop-utils"
+import { enumerable, generate, singleton } from "@krazyphish/develop-utils"
 import { init, type EChartsOption, type ECharts } from "echarts"
 import type { Scene, Viewer } from "cesium"
 import type { Destroyable } from "../abstract"

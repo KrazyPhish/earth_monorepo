@@ -1,5 +1,5 @@
 import type { BillboardGraphics, ModelGraphics, PathGraphics, TimeIntervalCollection, Viewer } from "cesium"
-import { generate, singleton, validate, enumerable, or } from "develop-utils"
+import { generate, singleton, validate, enumerable, or } from "@krazyphish/develop-utils"
 import { Destroyable } from "../../abstract"
 import type { Earth } from "../Earth"
 import { Animation } from "./Animation"

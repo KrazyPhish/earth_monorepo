@@ -17,7 +17,7 @@ import { Geographic } from "../coordinate"
 import { Utils } from "../../utils"
 import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer } from "../../abstract"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
 
 export namespace EllipseLayer {

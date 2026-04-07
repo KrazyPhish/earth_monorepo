@@ -7,8 +7,8 @@ export default defineConfig({
       {
         test: {
           globals: true,
-          name: "develop-utils",
-          include: ["packages/develop-utils/test/**/*.{test,spec}.ts"],
+          name: "@krazyphish/develop-utils",
+          include: ["packages/@krazyphish/develop-utils/test/**/*.{test,spec}.ts"],
           environment: "node",
         },
       },
@@ -22,11 +22,11 @@ export default defineConfig({
         resolve: {
           preserveSymlinks: true,
           alias: {
-            "develop-utils": path.resolve(__dirname, "./packages/develop-utils/src/index.ts"),
+            "@krazyphish/develop-utils": path.resolve(__dirname, "./packages/@krazyphish/develop-utils/src/index.ts"),
           },
         },
         ssr: {
-          noExternal: ["develop-utils"],
+          noExternal: ["@krazyphish/develop-utils"],
         },
       },
     ],

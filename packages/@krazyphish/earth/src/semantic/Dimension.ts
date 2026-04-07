@@ -1,5 +1,5 @@
 import { Cartesian2, Cartesian3, Cartesian4 } from "cesium"
-import { constant, validate, is, moreThan, positive } from "develop-utils"
+import { constant, validate, is, moreThan, positive } from "@krazyphish/develop-utils"
 
 const { abs } = Math
 

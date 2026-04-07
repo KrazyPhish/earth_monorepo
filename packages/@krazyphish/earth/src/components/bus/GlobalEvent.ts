@@ -2,7 +2,7 @@
 import { Cartesian2, Entity, ScreenSpaceEventHandler } from "cesium"
 import { EventBus } from "./EventBus"
 import { Utils } from "../../utils"
-import { enumerable, generate, singleton } from "develop-utils"
+import { enumerable, generate, singleton } from "@krazyphish/develop-utils"
 import { Destroyable } from "../../abstract"
 import type { Earth } from "../Earth"
 import type { GlobalEventType } from "../../enum"

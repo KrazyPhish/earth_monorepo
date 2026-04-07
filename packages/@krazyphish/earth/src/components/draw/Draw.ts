@@ -39,7 +39,7 @@ import { StrokeDynamic } from "./StrokeDynamic"
 import { WallDynamic } from "./WallDynamic"
 import { LabelDynamic } from "./LabelDynamic"
 import { Destroyable, Dynamic } from "../../abstract"
-import { enumerable, generate, singleton } from "develop-utils"
+import { enumerable, generate, singleton } from "@krazyphish/develop-utils"
 
 export namespace Draw {
   /**

@@ -10,7 +10,7 @@ import {
   type PointPrimitive,
 } from "cesium"
 import { PrimitiveCluster } from "./PrimitiveCluster"
-import { is, generate, validate, enumerable } from "develop-utils"
+import { is, generate, validate, enumerable } from "@krazyphish/develop-utils"
 import { Destroyable } from "../../abstract"
 import type { Earth } from "../Earth"
 

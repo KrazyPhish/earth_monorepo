@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-invalid-this */
-import { except, moreThan, is, lessThan, validate, freeze } from "develop-utils"
+import { except, moreThan, is, lessThan, validate, freeze } from "@krazyphish/develop-utils"
 import { CoorFormat } from "../enum"
 
 const separator = "Ω"

@@ -1,5 +1,5 @@
 import { Camera, Cartesian2, Cartesian3, Cesium3DTileset, Math, Rectangle, Scene } from "cesium"
-import { is, positive, freeze, validate } from "develop-utils"
+import { is, positive, freeze, validate } from "@krazyphish/develop-utils"
 
 //TODO camera viewer manager
 const levelHeight: number[] = [

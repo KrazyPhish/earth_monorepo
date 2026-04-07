@@ -26,7 +26,7 @@ import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer } from "../../abstract"
 import { Utils } from "../../utils"
 import { ViewAngle } from "../../enum"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
 
 const { sqrt, floor } = Math

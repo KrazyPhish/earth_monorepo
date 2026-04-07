@@ -1,4 +1,4 @@
-import { generate } from "develop-utils"
+import { generate } from "@krazyphish/develop-utils"
 import { BillboardLayer, EllipseLayer, PointLayer, PolygonLayer, PolylineLayer, RectangleLayer } from "."
 import type { Earth } from "../Earth"
 import type { Destroyable } from "../../abstract"

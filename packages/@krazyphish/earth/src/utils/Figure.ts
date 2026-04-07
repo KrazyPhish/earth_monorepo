@@ -12,7 +12,7 @@ import {
 import * as turf from "@turf/turf"
 import { Geographic } from "../components/coordinate"
 import { EarthRadius } from "../enum"
-import { moreThan, is, lessThan, validate, freeze, positive, deprecate } from "develop-utils"
+import { moreThan, is, lessThan, validate, freeze, positive, deprecate } from "@krazyphish/develop-utils"
 
 const { abs, asin, pow, sqrt, sin, cos, PI } = Math
 
