@@ -15,7 +15,7 @@ import {
 import { EarthRadius } from "../../enum"
 import { CameraTool } from "../../utils"
 import { WindParticleSystem } from "./WindParticleSystem"
-import { generate, singleton } from "develop-utils"
+import { generate, singleton } from "@krazyphish/develop-utils"
 import type { Destroyable } from "../../abstract"
 import type { Earth } from "../Earth"
 

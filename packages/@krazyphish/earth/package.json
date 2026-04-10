@@ -1,7 +1,7 @@
 {
   "name": "@krazyphish/earth",
   "author": "KrazyPhish",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "build": "pnpm release && pnpm type",
@@ -19,7 +19,7 @@
       "import": "./dist/index.es.js",
       "require": "./dist/index.cjs.js"
     },
-    "./style.css": "./dist/index.css"
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist",
@@ -45,9 +45,9 @@
     "cesium": "^1.130.0"
   },
   "dependencies": {
+    "@krazyphish/develop-utils": "workspace: *",
     "@turf/turf": "^7.2.0",
     "cesium-navigation-es6": "^3.0.9",
-    "develop-utils": "workspace: *",
     "kdbush": "^4.0.2",
     "mitt": "^3.0.1"
   },

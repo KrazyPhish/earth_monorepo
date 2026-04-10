@@ -13,7 +13,7 @@ import {
 } from "cesium"
 import { Layer } from "../../abstract"
 import { Utils } from "../../utils"
-import { is, validate } from "develop-utils"
+import { is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
 
 export namespace LabelLayer {

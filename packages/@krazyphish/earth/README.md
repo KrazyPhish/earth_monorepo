@@ -4,7 +4,7 @@ A simpler module for GIS based on [cesium](https://www.npmjs.com/package/cesium)
 
 ### Before start
 
-Before start using this module, install packages blow manually: [cesium](https://www.npmjs.com/package/cesium), [echarts](https://www.npmjs.com/package/echarts).
+Before start using this module, install packages blow manually: [cesium](https://www.npmjs.com/package/cesium).
 
 Then install this module:
 
@@ -21,7 +21,7 @@ npm install @krazyphish/earth
 ```ts
 // in your main.ts or main.tsx
 // import the style sheet
-import "@krazyphish/earth/dist/style.css"
+import "@krazyphish/earth/style.css"
 ```
 
 ```ts

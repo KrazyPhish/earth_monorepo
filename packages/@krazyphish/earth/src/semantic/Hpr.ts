@@ -1,5 +1,5 @@
 import { HeadingPitchRoll, Math as CzmMath } from "cesium"
-import { validate, is, positive } from "develop-utils"
+import { validate, is, positive } from "@krazyphish/develop-utils"
 
 const { abs, PI } = Math
 

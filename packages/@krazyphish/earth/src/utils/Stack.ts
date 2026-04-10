@@ -1,4 +1,4 @@
-import { enumerable } from "develop-utils"
+import { enumerable } from "@krazyphish/develop-utils"
 import type { Queue } from "./Queue"
 
 export namespace Stack {

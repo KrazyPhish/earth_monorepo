@@ -1,6 +1,5 @@
 {
-  "name": "develop-utils",
-  "private": true,
+  "name": "@krazyphish/develop-utils",
   "author": "KrazyPhish",
   "version": "1.0.0",
   "type": "module",

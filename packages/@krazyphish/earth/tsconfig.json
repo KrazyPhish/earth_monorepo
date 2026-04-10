@@ -4,8 +4,8 @@
     "lib": ["ESNext", "DOM"],
     "types": [],
     "paths": {
-      "develop-utils": ["./node_modules/develop-utils/src/index.ts"]
+      "@krazyphish/develop-utils": ["./node_modules/@krazyphish/develop-utils/src/index.ts"]
     }
   },
-  "include": ["src/**/*.ts", "develop-utils"]
+  "include": ["src/**/*.ts", "@krazyphish/develop-utils"]
 }

@@ -3,7 +3,7 @@ import type { Material, TextureMagnificationFilter, TextureMinificationFilter } 
 import { PolylineFlowingDashMaterial } from "./PolylineFlowingDashMaterial"
 import { PolylineFlowingWaveMaterial } from "./PolylineFlowingWaveMaterial"
 import { PolylineTrailingMaterial } from "./PolylineTrailingMaterial"
-import { is, freeze, validate } from "develop-utils"
+import { is, freeze, validate } from "@krazyphish/develop-utils"
 
 /**
  * @description 自定义材质

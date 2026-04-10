@@ -1,5 +1,5 @@
 import { Color as CzmColor, Math as CzmMath } from "cesium"
-import { constant, validate, is, lessThan, positive } from "develop-utils"
+import { constant, validate, is, lessThan, positive } from "@krazyphish/develop-utils"
 
 const { abs, round } = Math
 

@@ -19,7 +19,7 @@ import { Utils, Figure } from "../../utils"
 import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer, Outlined } from "../../abstract"
 import { PolylineLayer } from "./PolylineLayer"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
 
 export namespace PolygonLayer {

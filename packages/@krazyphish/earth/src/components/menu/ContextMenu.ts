@@ -1,4 +1,4 @@
-import { except, is, generate, singleton, validate, enumerable } from "develop-utils"
+import { except, is, generate, singleton, validate, enumerable } from "@krazyphish/develop-utils"
 import { ScreenSpaceEventHandler, Cartesian2, ScreenSpaceEventType, Entity } from "cesium"
 import { MenuEventType, DefaultContextMenuItem } from "../../enum"
 import { State, Utils } from "../../utils"

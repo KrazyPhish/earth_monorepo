@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { enumerable } from "develop-utils"
+import { enumerable } from "@krazyphish/develop-utils"
 import { Queue } from "./Queue"
 import { Utils } from "./Utils"
 

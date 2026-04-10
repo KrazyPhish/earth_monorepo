@@ -10,7 +10,7 @@ import {
   type HeightReference,
   type NearFarScalar,
 } from "cesium"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer } from "../../abstract"
 import { Utils } from "../../utils"

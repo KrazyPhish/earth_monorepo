@@ -10,7 +10,7 @@ import {
 } from "cesium"
 import { Geographic } from "./Geographic"
 import { ScreenCapture } from "../../enum"
-import { is, or, singleton, validate } from "develop-utils"
+import { is, or, singleton, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
 
 /**

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { generate } from "develop-utils"
+import { generate } from "@krazyphish/develop-utils"
 import type {
   Billboard,
   BillboardCollection,

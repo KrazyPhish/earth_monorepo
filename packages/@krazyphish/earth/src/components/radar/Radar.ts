@@ -16,7 +16,7 @@ import {
   type Scene,
 } from "cesium"
 import { Geographic } from "../coordinate"
-import { is, generate, validate } from "develop-utils"
+import { is, generate, validate } from "@krazyphish/develop-utils"
 import { scan, diffuse } from "../../shaders"
 import { Utils } from "../../utils"
 import type { Destroyable } from "../../abstract"

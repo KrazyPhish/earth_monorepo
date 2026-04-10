@@ -3,7 +3,7 @@ import { dark } from "../../shaders"
 import { ParticleLayer } from "../layers"
 import { Utils } from "../../utils"
 import { rain, snow } from "../../images"
-import { enumerable, is, generate, singleton, validate } from "develop-utils"
+import { enumerable, is, generate, singleton, validate } from "@krazyphish/develop-utils"
 import type { Destroyable } from "../../abstract"
 import type { Earth } from "../Earth"
 

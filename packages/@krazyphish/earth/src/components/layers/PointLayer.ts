@@ -9,7 +9,7 @@ import {
 import { Utils } from "../../utils"
 import { Labeled, Layer } from "../../abstract"
 import { LabelLayer } from "./LabelLayer"
-import { generate, is, validate } from "develop-utils"
+import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
 
 export namespace PointLayer {

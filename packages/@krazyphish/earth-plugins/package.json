@@ -1,7 +1,7 @@
 {
   "name": "@krazyphish/earth-plugins",
   "author": "KrazyPhish",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "build": "pnpm release && pnpm type",
@@ -35,7 +35,7 @@
     "echarts": "^5.5.0"
   },
   "dependencies": {
-    "develop-utils": "workspace: *"
+    "@krazyphish/develop-utils": "workspace: *"
   },
   "devDependencies": {
     "@krazyphish/earth": "workspace: *",

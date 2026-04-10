@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /**
  * @description 欢迎信息装饰器
  * @param pkg pkg信息
  * @param picPath 图标路径
  */
-export const welcome = (pkg: any, picPath: string): ClassDecorator => {
+export const welcome = (pkg: { name: string; author: string; version: string }, picPath: string): ClassDecorator => {
   return (target) => {
     console.groupCollapsed(
       "%c %c " + "Welcome to use.",
