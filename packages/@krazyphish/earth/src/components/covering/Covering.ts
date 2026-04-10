@@ -251,6 +251,7 @@ export class Covering<T = unknown> implements Destroyable {
       if (!canvasCoordinate) return
       const moveX = canvasCoordinate.x - lastPosition.x
       const moveY = canvasCoordinate.y - lastPosition.y
+      if (Math.abs(moveX) <= 1 && Math.abs(moveY) <= 1) return
       lastPosition.x = canvasCoordinate.x
       lastPosition.y = canvasCoordinate.y
       if (!this.#draggable) {

@@ -567,9 +567,9 @@ export class Heatmap implements Destroyable {
    * @description 移除地图上的热图
    */
   remove() {
-    if (this.#moveEndEvent) this.#earth.camera.moveEnd.removeEventListener(this.#moveEndEvent)
+    if (this.#moveEndEvent) this.#earth?.camera?.moveEnd?.removeEventListener(this.#moveEndEvent)
     if (this._layer && this._layer instanceof ImageryLayer) {
-      this.#earth.scene.imageryLayers.remove(this._layer)
+      this.#earth?.scene?.imageryLayers?.remove(this._layer)
     }
   }
 

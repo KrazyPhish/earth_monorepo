@@ -139,11 +139,11 @@ export class AnimationManager implements Destroyable {
     if (id) {
       const entity = this._cache.get(id)
       if (entity) {
-        this._viewer.entities.remove(entity.instance)
+        this._viewer?.entities?.remove(entity.instance)
       }
     } else {
       this._cache.forEach((ent) => {
-        this._viewer.entities.remove(ent.instance)
+        this._viewer?.entities?.remove(ent.instance)
       })
     }
   }

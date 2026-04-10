@@ -369,19 +369,19 @@ export class WindField implements Destroyable {
     if (this._isDestroyed) return
     this._isDestroyed = true
     if (this.#morphStartEvent) {
-      this.#scene.morphStart.removeEventListener(this.#morphStartEvent)
+      this.#scene?.morphStart?.removeEventListener(this.#morphStartEvent)
     }
     if (this.#morphCompleteEvent) {
-      this.#scene.morphComplete.removeEventListener(this.#morphCompleteEvent)
+      this.#scene?.morphComplete?.removeEventListener(this.#morphCompleteEvent)
     }
     if (this.#moveStartEvent) {
-      this.#camera.moveStart.removeEventListener(this.#moveStartEvent)
+      this.#camera?.moveStart?.removeEventListener(this.#moveStartEvent)
     }
     if (this.#moveEndEvent) {
-      this.#camera.moveEnd.removeEventListener(this.#moveEndEvent)
+      this.#camera?.moveEnd?.removeEventListener(this.#moveEndEvent)
     }
     if (this.#preRenderEvent) {
-      this.#scene.preRender.removeEventListener(this.#preRenderEvent)
+      this.#scene?.preRender?.removeEventListener(this.#preRenderEvent)
     }
     window.removeEventListener("resize", this.#resizeEvent)
     this.#removePrimitives()

@@ -131,8 +131,6 @@ export class GlobalEvent implements Destroyable {
   destroy() {
     if (this._isDestroyed) return
     this._isDestroyed = true
-    this.#handler.destroy()
-    this._bus = undefined as any
-    this.#handler = undefined as any
+    this.#handler?.destroy()
   }
 }

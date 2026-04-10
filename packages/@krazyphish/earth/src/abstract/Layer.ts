@@ -283,10 +283,8 @@ export abstract class Layer<C extends Layer.Collections, P extends Layer.Primiti
       return true
     }
     if (this._allowDestroy) {
-      this.#scene.primitives.remove(this._collection)
+      this.#scene?.primitives?.remove(this._collection)
       this._cache.clear()
-      this._collection = undefined as any
-      this._cache = undefined as any
       this._isDestroyed = true
       return true
     }

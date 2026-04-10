@@ -1253,7 +1253,7 @@ export class ProtoDraw implements Destroyable {
   destroy() {
     if (this._isDestroyed) return
     this._isDestroyed = true
-    this.#editHandler.destroy()
+    this.#editHandler?.destroy()
     this._attackArrow.destroy()
     this._billboard.destroy()
     this._circle.destroy()

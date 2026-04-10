@@ -370,16 +370,16 @@ export class Sensor<T = unknown> implements Destroyable {
       if (cache) {
         this._collection.remove(cache.primitive)
         if (cache.data.callback) {
-          this.#scene.preUpdate.removeEventListener(cache.data.callback)
+          this.#scene?.preUpdate?.removeEventListener(cache.data.callback)
         }
         this.#cache.delete(id)
       }
     } else {
-      this._collection.removeAll()
+      this._collection?.removeAll()
       this.#cache.forEach((c) => {
         const callback = c.data.callback
         if (callback) {
-          this.#scene.preUpdate.removeEventListener(callback)
+          this.#scene?.preUpdate?.removeEventListener(callback)
         }
       })
       this.#cache.clear()
@@ -392,14 +392,14 @@ export class Sensor<T = unknown> implements Destroyable {
   destroy() {
     if (this._isDestroyed) return
     this._isDestroyed = true
-    this._collection.removeAll()
+    this._collection?.removeAll()
     this.#cache.forEach((c) => {
       const callback = c.data.callback
       if (callback) {
-        this.#scene.preUpdate.removeEventListener(callback)
+        this.#scene?.preUpdate?.removeEventListener(callback)
       }
     })
-    this.#scene.primitives.remove(this._collection)
+    this.#scene?.primitives?.remove(this._collection)
     this.#cache.clear()
   }
 }

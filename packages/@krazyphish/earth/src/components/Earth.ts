@@ -507,6 +507,6 @@ export class Earth implements Destroyable {
     if (this._isDestroyed) return
     this._isDestroyed = true
     this._layers.destroy()
-    this._viewer.destroy()
+    this._viewer?.destroy()
   }
 }
