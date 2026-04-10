@@ -4,7 +4,7 @@ A simpler module for GIS based on [cesium](https://www.npmjs.com/package/cesium)
 
 ### Before start
 
-Before start using this module, install packages blow manually: [cesium](https://www.npmjs.com/package/cesium), [echarts](https://www.npmjs.com/package/echarts).
+Before start using this module, install packages blow manually: [cesium](https://www.npmjs.com/package/cesium).
 
 Then install this module:
 
