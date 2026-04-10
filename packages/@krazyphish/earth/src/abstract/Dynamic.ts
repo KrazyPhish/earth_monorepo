@@ -225,6 +225,6 @@ export abstract class Dynamic<L extends Dynamic.Layer> implements Destroyable {
     this.interrupt()
     this.remove()
     this._layer.destroy()
-    this.#editHandler.destroy()
+    this.#editHandler?.destroy()
   }
 }

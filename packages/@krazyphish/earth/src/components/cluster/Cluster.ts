@@ -197,6 +197,6 @@ export class Cluster implements Destroyable {
     if (this._isDestroyed) return
     this._isDestroyed = true
     this._removeListener?.()
-    this.#earth.scene.primitives.remove(this._collection)
+    this.#earth?.scene?.primitives?.remove(this._collection)
   }
 }

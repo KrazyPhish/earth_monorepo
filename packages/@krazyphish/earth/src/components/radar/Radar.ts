@@ -563,8 +563,8 @@ export class Radar<T = unknown> implements Destroyable {
   destroy() {
     if (this._isDestroyed) return
     this._isDestroyed = true
-    this.#collection.removeAll()
-    this.#earth.viewer.dataSources.remove(this.#dataSource)
+    this.#collection?.removeAll()
+    this.#earth?.viewer?.dataSources?.remove(this.#dataSource)
     this.#cache.clear()
   }
 }

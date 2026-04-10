@@ -595,7 +595,7 @@ export class ContextMenu implements Destroyable {
   destroy() {
     if (this._isDestroyed) return
     this._isDestroyed = true
-    this.#handler.destroy()
+    this.#handler?.destroy()
     this._cache.clear()
     this.#toggleDfCache.clear()
     this.#toggleOpCache.clear()
