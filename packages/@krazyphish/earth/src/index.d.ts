@@ -1686,8 +1686,8 @@ declare module "@krazyphish/earth" {
     }
     /**
      * @extends Base {@link Base} 基本属性
-     * @property [materialType = "Color"] {@link PolylineLayer.MaterialType} 线条材质类型
-     * @property [materialUniforms = { color: {@link CzmColor.RED} }] {@link PolylineLayer.MaterialUniforms} 材质参数
+     * @property [materialType = "Color"] 线条材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.RED} }] 材质参数
      * @property [width = 2] 线条宽度
      * @property [keep = true] 是否保留绘制图形
      * @property [ground = false] 图形是否贴地
@@ -1697,8 +1697,8 @@ declare module "@krazyphish/earth" {
      * @property [onFinish] 绘制结束的回调
      */
     export type Polyline = Base & {
-      materialType?: PolylineLayer.MaterialType
-      materialUniforms?: PolylineLayer.MaterialUniforms
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       width?: number
       keep?: boolean
       ground?: boolean
@@ -2942,7 +2942,9 @@ declare module "@krazyphish/earth" {
      * @property minorAxis 短半径
      * @property [rotation] 旋转
      * @property [height] 高度
-     * @property [color = {@link CzmColor.RED}] 填充色
+     * @property [color = {@link CzmColor.WHITE}] 填充颜色
+     * @property [materialType = "Color"] 填充材质
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] 填充材质参数
      * @property [ground = false] 是否贴地
      * @property [label] {@link LabelAddParam} 对应标签
      */
@@ -2952,7 +2954,12 @@ declare module "@krazyphish/earth" {
       minorAxis: number
       rotation?: number
       height?: number
+      /**
+       * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+       */
       color?: CzmColor
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       ground?: boolean
       label?: LabelAddParam<T>
     }
@@ -3007,7 +3014,8 @@ declare module "@krazyphish/earth" {
      *  center: Cartesian3.fromDegrees(104, 31),
      *  majorAxis: 5000,
      *  minorAxis: 5000,
-     *  color: Color.RED,
+     *  materialType: "Color",
+     *  materialUniforms: { color: Color.WHITE },
      *  ground: true,
      * })
      * ```
@@ -4384,7 +4392,9 @@ declare module "@krazyphish/earth" {
      * @extends Layer.AddParam {@link Layer.AddParam}
      * @property positions {@link Cartesian3} 位置
      * @property [height] 高度
-     * @property [color = {@link CzmColor.RED}] 填充色
+     * @property [color = {@link CzmColor.WHITE}] 填充颜色
+     * @property [materialType = "Color"] 填充材质
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] 填充材质参数
      * @property [usePointHeight = false] 多边形顶点使用其自身高度
      * @property [ground = false] 是否贴地
      * @property [arcType = {@link ArcType.GEODESIC}] 线段弧度类型，贴地时无效
@@ -4394,7 +4404,12 @@ declare module "@krazyphish/earth" {
     export type AddParam<T> = Layer.AddParam<T> & {
       positions: Cartesian3[]
       height?: number
+      /**
+       * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+       */
       color?: CzmColor
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       usePointHeight?: boolean
       ground?: boolean
       arcType?: ArcType
@@ -4458,7 +4473,8 @@ declare module "@krazyphish/earth" {
      *    Cartesian3.fromDegrees(105, 31, 300),
      *    Cartesian3.fromDegrees(104, 32, 500),
      *  ],
-     *  color: Color.RED,
+     *  materialType: "Color",
+     *  materialUniforms: { color: Color.WHITE },
      *  usePointHeight: true,
      *  ground: false,
      * })
@@ -4547,29 +4563,13 @@ declare module "@krazyphish/earth" {
 
   export namespace PolylineLayer {
     /**
-     * @description 线条材质类型
-     */
-    export type MaterialType =
-      | "Color"
-      | "PolylineArrow"
-      | "PolylineDash"
-      | "PolylineGlow"
-      | "PolylineOutline"
-      | "PolylineFlowingDash"
-      | "PolylineFlowingWave"
-      | "PolylineTrailing"
-    /**
-     * @description 材质类型对应的 `uniforms` 参数
-     */
-    export type MaterialUniforms = { [key: string]: any }
-    /**
      * @extends Layer.AddParam {@link Layer.AddParam}
      * @property lines {@link Cartesian3} 位置
      * @property [asynchronous = true] 是否异步渲染
      * @property [width = 2] 线宽
      * @property [arcType = {@link ArcType.GEODESIC}] 线段弧度类型
      * @property [materialType = "Color"] {@link MaterialType} 材质类型
-     * @property [materialUniforms = { color: {@link CzmColor.RED} }] {@link MaterialUniforms} 材质参数
+     * @property [materialUniforms = { color: {@link Color.WHITE} }] 材质参数
      * @property [perLineVertexColors] 各线段或其顶点使用单独的颜色，将忽略材质相关配置
      * @property [ground = false] 是否贴地
      * @property [loop = false] 是否首尾相接
@@ -4579,9 +4579,9 @@ declare module "@krazyphish/earth" {
       asynchronous?: boolean
       width?: number
       arcType?: ArcType
-      materialType?: MaterialType
-      materialUniforms?: MaterialUniforms
-      perLineVertexColors?: CzmColor[] | CzmColor[][]
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
+      perLineVertexColors?: Color[] | Color[][]
       ground?: boolean
       loop?: boolean
     }
@@ -4740,7 +4740,9 @@ declare module "@krazyphish/earth" {
      * @extends Layer.AddParam {@link Layer.AddParam}
      * @property rectangle {@link Rectangle} 矩形
      * @property [height] 高度
-     * @property [color = {@link CzmColor.BLUE}] 填充色
+     * @property [color = {@link CzmColor.WHITE}] 填充颜色
+     * @property [materialType = "Color"] 填充材质
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] 填充材质参数
      * @property [ground = false] 是否贴地
      * @property [outline] {@link OutlineAddParam} 轮廓线
      * @property [label] {@link LabelAddParam} 对应标签
@@ -4748,7 +4750,12 @@ declare module "@krazyphish/earth" {
     export type AddParam<T> = Layer.AddParam<T> & {
       rectangle: Rectangle
       height?: number
+      /**
+       * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+       */
       color?: CzmColor
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       ground?: boolean
       outline?: OutlineAddParam<T>
       label?: LabelAddParam<T>
@@ -4800,7 +4807,8 @@ declare module "@krazyphish/earth" {
      * const rectLayer = new RectangleLayer(earth)
      * rectLayer.add({
      *  rectangle: Rectangle.fromDegrees(104, 31, 105, 32),
-     *  color: Color.RED,
+     *  materialType: "Color",
+     *  materialUniforms: { color: Color.RED },
      *  ground: true,
      * })
      * ```
@@ -5039,6 +5047,173 @@ declare module "@krazyphish/earth" {
    * @description 自定义材质
    */
   export namespace CustomMaterial {
+    export type MaterialConfigurations = {
+      Color: {
+        color?: CzmColor
+      }
+      Image: {
+        image?: string
+        repeat?: Cartesian2
+      }
+      DiffuseMap: {
+        image?: string
+        /**
+         * @description 包含`"r"`, `"g"`, `"b"`, `"a"`的任意三值字符串组合
+         */
+        channels?: string
+        repeat?: Cartesian2
+      }
+      AlphaMap: {
+        image?: string
+        channel?: "r" | "g" | "b" | "a"
+        repeat?: Cartesian2
+      }
+      SpecularMap: {
+        image?: string
+        channel?: "r" | "g" | "b" | "a"
+        repeat?: Cartesian2
+      }
+      EmissionMap: {
+        image?: string
+        /**
+         * @description 包含`"r"`, `"g"`, `"b"`, `"a"`的任意三值字符串组合
+         */
+        channels?: string
+        repeat?: Cartesian2
+      }
+      BumpMap: {
+        image?: string
+        channel?: "r" | "g" | "b" | "a"
+        repeat?: Cartesian2
+        /**
+         * @description 凸起强度`[0, 1]`
+         */
+        strength?: number
+      }
+      NormalMap: {
+        image?: string
+        /**
+         * @description 包含`"r"`, `"g"`, `"b"`, `"a"`的任意三值字符串组合
+         */
+        channels?: string
+        repeat?: Cartesian2
+        /**
+         * @description 凸起强度`[0, 1]`
+         */
+        strength?: number
+      }
+      Grid: {
+        color?: CzmColor
+        cellAlpha?: number
+        lineCount?: Cartesian2
+        lineThickness?: Cartesian2
+        lineOffset?: Cartesian2
+      }
+      Stripe: {
+        horizontal?: boolean
+        evenColor?: CzmColor
+        oddColor?: CzmColor
+        offset?: number
+        repeat?: number
+      }
+      Checkerboard: {
+        lightColor?: CzmColor
+        darkColor?: CzmColor
+        repeat?: Cartesian2
+      }
+      Dot: {
+        lightColor?: CzmColor
+        darkColor?: CzmColor
+        repeat?: Cartesian2
+      }
+      Water: {
+        baseWaterColor?: CzmColor
+        blendColor?: CzmColor
+        specularMap?: string
+        normalMap?: string
+        frequency?: number
+        animationSpeed?: number
+        amplitude?: number
+        specularIntensity?: number
+      }
+      RimLighting: {
+        color?: CzmColor
+        rimColor?: CzmColor
+        width?: number
+      }
+      Fade: {
+        fadeInColor?: CzmColor
+        fadeOutColor?: CzmColor
+        maximumDistance?: number
+        repeat?: boolean
+        fadeDirection?: Cartesian2
+        time?: Cartesian2
+      }
+      PolylineArrow: {
+        color?: CzmColor
+      }
+      PolylineDash: {
+        color?: CzmColor
+        gapColor?: CzmColor
+        dashLength?: number
+        dashPattern?: number
+      }
+      PolylineGlow: {
+        color?: CzmColor
+        glowPower?: number
+        taperPower?: number
+      }
+      PolylineOutline: {
+        color?: CzmColor
+        outlineColor?: CzmColor
+        outlineWidth?: number
+      }
+      ElevationContour: {
+        color?: CzmColor
+        spacing?: number
+        width?: number
+      }
+      ElevationRamp: {
+        image?: string
+        minimumHeight?: number
+        maximumHeight?: number
+      }
+      SlopRamp: {
+        image?: string
+      }
+      AspectRamp: {
+        image?: string
+      }
+      ElevationBand: {
+        heights?: number[]
+        colors?: CzmColor[]
+      }
+      WaterMask: {
+        waterColor?: CzmColor
+        landColor?: CzmColor
+      }
+      PolylineFlowingDash: {
+        color?: CzmColor
+        gapColor?: CzmColor
+        pattern?: number
+        length?: number
+        direction?: number
+        speed?: number
+      }
+      PolylineFlowingWave: {
+        color?: CzmColor
+        direction?: number
+        length?: number
+        speed?: number
+      }
+      PolylineTrailing: {
+        color?: CzmColor
+        speed?: number
+        direction?: number
+      }
+    }
+    export type Type = keyof MaterialConfigurations
+    export type Uniforms<T extends Type = Type> = MaterialConfigurations[T]
     export type ConstructorOptions = {
       strict?: boolean
       translucent?: boolean | ((...params: any[]) => any)
@@ -5123,8 +5298,8 @@ declare module "@krazyphish/earth" {
      * @extends Base {@link Base}
      * @property [split = true] 是否为分段方位测量，否则为首点方位测量
      * @property [width = 2] 测量线宽度
-     * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-     * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+     * @property [materialType = "PolylineDash"] 测量线材质
+     * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
      * @property [labelOutlineColor = {@link CzmColor.RED}] 标签轮廓色
      * @property [labelOutlineWidth = 1] 标签轮廓线宽度
      * @property [labelFillColor = {@link CzmColor.RED}] 标签字体色
@@ -5135,8 +5310,8 @@ declare module "@krazyphish/earth" {
     export type Bearing = Base & {
       split?: boolean
       width?: number
-      materialType?: PolylineLayer.MaterialType
-      materialUniforms?: PolylineLayer.MaterialUniforms
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       labelOutlineColor?: CzmColor
       labelOutlineWidth?: number
       labelFillColor?: CzmColor
@@ -5166,8 +5341,8 @@ declare module "@krazyphish/earth" {
      * @extends Base {@link Base}
      * @property [split = true] 是否为分段方距测量，否则为首点方距测量
      * @property [width = 2] 测量线宽度
-     * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-     * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+     * @property [materialType = "PolylineDash"] 测量线材质
+     * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
      * @property [labelOutlineColor = {@link CzmColor.RED}] 标签轮廓色
      * @property [labelOutlineWidth = 1] 标签轮廓线宽度
      * @property [labelFillColor = {@link CzmColor.RED}] 标签字体色
@@ -5178,8 +5353,8 @@ declare module "@krazyphish/earth" {
     export type Distance = Base & {
       split?: boolean
       width?: number
-      materialType?: PolylineLayer.MaterialType
-      materialUniforms?: PolylineLayer.MaterialUniforms
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       labelOutlineColor?: CzmColor
       labelOutlineWidth?: number
       labelFillColor?: CzmColor
@@ -5190,8 +5365,8 @@ declare module "@krazyphish/earth" {
     /**
      * @extends Base {@link Base}
      * @property [width = 2] 测量线宽度
-     * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-     * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+     * @property [materialType = "PolylineDash"] 测量线材质
+     * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
      * @property [labelOutlineColor = {@link CzmColor.RED}] 标签轮廓色
      * @property [labelOutlineWidth = 1] 标签轮廓线宽度
      * @property [labelFillColor = {@link CzmColor.RED}] 标签字体色
@@ -5201,8 +5376,8 @@ declare module "@krazyphish/earth" {
      */
     export type HeightDifference = Base & {
       width?: number
-      materialType?: PolylineLayer.MaterialType
-      materialUniforms?: PolylineLayer.MaterialUniforms
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
       labelOutlineColor?: CzmColor
       labelOutlineWidth?: number
       labelFillColor?: CzmColor
@@ -5227,14 +5402,14 @@ declare module "@krazyphish/earth" {
      * @extends Base {@link Base}
      * @property [splits = 50] 剖面取点个数
      * @property [width = 2] 测量线宽度
-     * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-     * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+     * @property [materialType = "PolylineDash"] 测量线材质
+     * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
      */
     export type Section = Base & {
       splits?: number
       width?: number
-      materialType?: PolylineLayer.MaterialType
-      materialUniforms?: PolylineLayer.MaterialUniforms
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
     }
   }
 
@@ -6318,7 +6493,7 @@ declare module "@krazyphish/earth" {
      * 1. 返回值小于`0`则表示向量ac在ab的逆时针方向
      * 2. 返回值大于`0`则表示向量ac在ab的顺时针方向
      * 3. 返回值等于`0`则表示向量ab与ac共线
-     * @deprecated use `crossProduct`
+     * @deprecated 已删除，请使用 `crossProduct`
      */
     const CrossProduct: (a: number[], b: number[], c: number[]) => number
     /**
@@ -6327,7 +6502,7 @@ declare module "@krazyphish/earth" {
      * @param to 坐标点
      * @param [units = "meters"] 单位
      * @returns 距离
-     * @deprecated use `calcDistance`
+     * @deprecated 已删除，请使用 `calcDistance`
      */
     const CalcDistance: <T extends Geographic>(from: T, to: T, units?: Units) => number
     /**
@@ -6336,7 +6511,7 @@ declare module "@krazyphish/earth" {
      * @param to 坐标点
      * @param [units = "meters"] 单位
      * @returns 距离
-     * @deprecated use `calcRhumbDistance`
+     * @deprecated 已删除，请使用 `calcRhumbDistance`
      */
     const CalcRhumbDistance: <T extends Geographic>(from: T, to: T, units?: Units) => number
     /**
@@ -6346,7 +6521,7 @@ declare module "@krazyphish/earth" {
      * @param scene 场景
      * @param terrainProvider 地形图层
      * @returns 距离 `m`
-     * @deprecated use `calcGroundDistance`
+     * @deprecated 已删除，请使用 `calcGroundDistance`
      */
     const CalcGroundDistance: <T extends Geographic>(
       from: T,
@@ -6361,7 +6536,7 @@ declare module "@krazyphish/earth" {
      * @param distance 距离 `m`
      * @param angle 角度 <角度制>
      * @return 另外的点
-     * @deprecated use `calcPointByPointDistanceAngle`
+     * @deprecated 已删除，请使用 `calcPointByPointDistanceAngle`
      */
     const CalcPointByPointDistanceAngle: (
       longitude: number,
@@ -6374,7 +6549,7 @@ declare module "@krazyphish/earth" {
      * @param point 坐标点
      * @param rectangle 矩形
      * @returns `boolean`值
-     * @deprecated use `pointInRectangle`
+     * @deprecated 已删除，请使用 `pointInRectangle`
      */
     const PointInRectangle: (point: Geographic, rectangle: Rectangle) => boolean
     /**
@@ -6384,7 +6559,7 @@ declare module "@krazyphish/earth" {
      * @param radius 半径
      * @param [units = "meters"] 单位
      * @returns `boolean`值
-     * @deprecated use `pointInCircle`
+     * @deprecated 已删除，请使用 `pointInCircle`
      */
     const PointInCircle: <T extends Geographic>(point: T, center: T, radius: number, units?: Units) => boolean
     /**
@@ -6392,7 +6567,7 @@ declare module "@krazyphish/earth" {
      * @param point 坐标点
      * @param polygon 多边形点坐标
      * @returns `boolean`值
-     * @deprecated use `pointInPolygon`
+     * @deprecated 已删除，请使用 `pointInPolygon`
      */
     const PointInPolygon: <T extends Geographic>(point: T, polygon: T[]) => boolean
     /**
@@ -6400,7 +6575,7 @@ declare module "@krazyphish/earth" {
      * @param line1 线段1
      * @param line2 线段2
      * @returns `boolean`值
-     * @deprecated use `polylineIntersectPolyline`
+     * @deprecated 已删除，请使用 `polylineIntersectPolyline`
      */
     const PolylineIntersectPolyline: <T extends Geographic>(line1: T[], line2: T[]) => boolean
     /**
@@ -6408,7 +6583,7 @@ declare module "@krazyphish/earth" {
      * @param polyline 折线段
      * @param rectangle 矩形
      * @returns `boolean`值
-     * @deprecated use `polylineIntersectRectangle`
+     * @deprecated 已删除，请使用 `polylineIntersectRectangle`
      */
     const PolylineIntersectRectangle: (polyline: Geographic[], rectangle: Rectangle) => boolean
     /**
@@ -6416,7 +6591,7 @@ declare module "@krazyphish/earth" {
      * @param from 基准原点
      * @param to 参考点
      * @returns  角度 <角度制>
-     * @deprecated use `calcBearing`
+     * @deprecated 已删除，请使用 `calcBearing`
      */
     const CalcBearing: <T extends Geographic>(from: T, to: T) => number
     /**
@@ -6424,7 +6599,7 @@ declare module "@krazyphish/earth" {
      * @param from 基准原点
      * @param to 参考点
      * @returns 角度 <角度制>
-     * @deprecated use `calcRhumbBearing`
+     * @deprecated 已删除，请使用 `calcRhumbBearing`
      */
     const CalcRhumbBearing: <T extends Geographic>(from: T, to: T) => number
     /**
@@ -6433,7 +6608,7 @@ declare module "@krazyphish/earth" {
      * @param b 边缘点
      * @param c 边缘点
      * @returns 角度 <角度制>
-     * @deprecated use `calcAngle`
+     * @deprecated 已删除，请使用 `calcAngle`
      */
     const CalcAngle: <T extends Geographic>(a: T, b: T, c: T) => number
     /**
@@ -6441,7 +6616,7 @@ declare module "@krazyphish/earth" {
      * @param point1
      * @param point2
      * @returns 中心点
-     * @deprecated use `calcMidPoint`
+     * @deprecated 已删除，请使用 `calcMidPoint`
      */
     const CalcMidPoint: <T extends Geographic>(point1: T, point2: T) => Geographic
     /**
@@ -6449,21 +6624,21 @@ declare module "@krazyphish/earth" {
      * @param points 多边形或平面的顶点
      * @param [withHeight = false] 是否计算时考虑高度
      * @returns 质心
-     * @deprecated use `calcMassCenter`
+     * @deprecated 已删除，请使用 `calcMassCenter`
      */
     const CalcMassCenter: (points: Geographic[], withHeight?: boolean) => Geographic
     /**
      * @description 计算一个一定位于多边形上的点
      * @param polygon 多边形
      * @returns 任意多边形上的点
-     * @deprecated use `calcPointOnPolygon`
+     * @deprecated 已删除，请使用 `calcPointOnPolygon`
      */
     const CalcPointOnPolygon: (polygon: Geographic[]) => Geographic
     /**
      * @description 计算多边形面积
      * @param polygon 多边形坐标
      * @returns 面积 `㎡`
-     * @deprecated use `calcPolygonArea`
+     * @deprecated 已删除，请使用 `calcPolygonArea`
      */
     const CalcPolygonArea: (polygon: Geographic[]) => number
     /**
@@ -6474,7 +6649,7 @@ declare module "@krazyphish/earth" {
      * @param radius2 y 轴半径 米
      * @param rotate 旋转 <弧度制>
      * @returns 包络点集合
-     * @deprecated use `calcEnvelope`
+     * @deprecated 已删除，请使用 `calcEnvelope`
      */
     const CalcEnvelope: (x: number, y: number, radius1: number, radius2: number, rotate: number) => number[][]
     /**
@@ -6482,14 +6657,14 @@ declare module "@krazyphish/earth" {
      * @param height 对地高度
      * @param arc 测地线弧长
      * @returns 真实高度和半径
-     * @deprecated use `calcConic`
+     * @deprecated 已删除，请使用 `calcConic`
      */
     const CalcConic: (height: number, arc: number) => { radius: number; height: number }
     /**
      * @description 计算数学累进距离
      * @param positions 坐标
      * @returns 距离
-     * @deprecated use `calcMathDistance`
+     * @deprecated 已删除，请使用 `calcMathDistance`
      */
     const CalcMathDistance: (positions: number[][]) => number
     /**
@@ -6500,7 +6675,7 @@ declare module "@krazyphish/earth" {
      * @param radius 半径
      * @param [revert = false] 是否逆时针
      * @returns 第三点
-     * @deprecated use `calcThirdPoint`
+     * @deprecated 已删除，请使用 `calcThirdPoint`
      */
     const CalcThirdPoint: (
       target: number[],
@@ -6514,7 +6689,7 @@ declare module "@krazyphish/earth" {
      * @param target 点1
      * @param origin 点2
      * @returns 角度 <弧度制>
-     * @deprecated use `calcAzimuth`
+     * @deprecated 已删除，请使用 `calcAzimuth`
      */
     const CalcAzimuth: (target: number[], origin: number[]) => number
     /**
@@ -6523,7 +6698,7 @@ declare module "@krazyphish/earth" {
      * @param b 夹角点
      * @param c 边缘点
      * @returns 角度 <弧度制>
-     * @deprecated use `calcMathAngle`
+     * @deprecated 已删除，请使用 `calcMathAngle`
      */
     const CalcMathAngle: (a: number[], b: number[], c: number[]) => number
     /**

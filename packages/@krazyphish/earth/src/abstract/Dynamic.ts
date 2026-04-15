@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ScreenSpaceEventHandler,
   type Camera,
@@ -146,13 +145,13 @@ export abstract class Dynamic<L extends Dynamic.Layer> implements Destroyable {
    * @description 添加实体的抽象方法
    * @param param 选项
    */
-  abstract add(param: any): void
+  abstract add(param: unknown): void
 
   /**
    * @description 动态绘制的抽象方法
    * @param param 选项
    */
-  abstract draw(param: any): Promise<unknown>
+  abstract draw(param: unknown): Promise<unknown>
 
   /**
    * @description 动态编辑的抽象方法
@@ -165,7 +164,7 @@ export abstract class Dynamic<L extends Dynamic.Layer> implements Destroyable {
    * @param event 事件类型
    * @param callback 回调
    */
-  subscribe(event: SubEventType, callback: (...args: any) => void): void {
+  subscribe(event: SubEventType, callback: (...args: unknown[]) => void): void {
     this._eventBus.on(event, callback)
   }
 
@@ -174,7 +173,7 @@ export abstract class Dynamic<L extends Dynamic.Layer> implements Destroyable {
    * @param event 事件类型
    * @param callback 回调
    */
-  unsubscribe(event: SubEventType, callback: (...args: any) => void): void {
+  unsubscribe(event: SubEventType, callback: (...args: unknown[]) => void): void {
     this._eventBus.off(event, callback)
   }
 

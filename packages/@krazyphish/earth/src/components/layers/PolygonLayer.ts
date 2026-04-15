@@ -3,15 +3,16 @@ import {
   Cartesian3,
   ClassificationType,
   Color,
-  ColorGeometryInstanceAttribute,
   GeometryInstance,
   GroundPrimitive,
   HorizontalOrigin,
   LabelStyle,
-  PerInstanceColorAppearance,
+  Material,
+  MaterialAppearance,
   PolygonGeometry,
   Primitive,
   PrimitiveCollection,
+  VertexFormat,
   VerticalOrigin,
 } from "cesium"
 import { Geographic } from "../coordinate"
@@ -21,6 +22,7 @@ import { Labeled, Layer, Outlined } from "../../abstract"
 import { PolylineLayer } from "./PolylineLayer"
 import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
+import type { CustomMaterial } from "../material"
 
 export namespace PolygonLayer {
   export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
@@ -31,7 +33,9 @@ export namespace PolygonLayer {
    * @extends Layer.AddParam {@link Layer.AddParam}
    * @property positions {@link Cartesian3} 位置
    * @property [height] 高度
-   * @property [color = {@link Color.RED}] 填充色
+   * @property [color = {@link Color.WHITE}] 填充颜色
+   * @property [materialType = "Color"] 填充材质
+   * @property [materialUniforms = { color: {@link Color.WHITE} }] 填充材质参数
    * @property [usePointHeight = false] 多边形顶点使用其自身高度
    * @property [ground = false] 是否贴地
    * @property [arcType = {@link ArcType.GEODESIC}] 线段弧度类型，贴地时无效
@@ -41,7 +45,12 @@ export namespace PolygonLayer {
   export type AddParam<T> = Layer.AddParam<T> & {
     positions: Cartesian3[]
     height?: number
+    /**
+     * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+     */
     color?: Color
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     usePointHeight?: boolean
     ground?: boolean
     arcType?: ArcType
@@ -86,7 +95,8 @@ export class PolygonLayer<T = unknown>
         id: param.id ?? Utils.uuid(),
         positions: param.positions,
         height: param.usePointHeight ? undefined : param.height,
-        color: param.color ?? Color.PURPLE.withAlpha(0.4),
+        materialType: param.materialType ?? "Color",
+        materialUniforms: param.materialUniforms ?? { color: param.color ?? Color.WHITE.withAlpha(0.4) },
         usePointHeight: param.usePointHeight ?? false,
         ground: param.ground ?? false,
         show: param.show ?? true,
@@ -96,7 +106,7 @@ export class PolygonLayer<T = unknown>
         ? {
             width: param.outline?.width ?? 2,
             materialType: param.outline?.materialType ?? "Color",
-            materialUniforms: param.outline?.materialUniforms ?? { color: Color.PURPLE },
+            materialUniforms: param.outline?.materialUniforms ?? { color: Color.WHITE },
           }
         : undefined,
       label: param.label
@@ -128,7 +138,8 @@ export class PolygonLayer<T = unknown>
    *    Cartesian3.fromDegrees(105, 31, 300),
    *    Cartesian3.fromDegrees(104, 32, 500),
    *  ],
-   *  color: Color.RED,
+   *  materialType: "Color",
+   *  materialUniforms: { color: Color.WHITE },
    *  usePointHeight: true,
    *  ground: false,
    * })
@@ -142,33 +153,37 @@ export class PolygonLayer<T = unknown>
       ? PolygonGeometry.fromPositions({
           arcType: polygon.arcType,
           positions: polygon.positions,
-          vertexFormat: PerInstanceColorAppearance.VERTEX_FORMAT,
+          vertexFormat: MaterialAppearance.MaterialSupport.TEXTURED.vertexFormat,
         })
       : PolygonGeometry.fromPositions({
           arcType: polygon.arcType,
           positions: polygon.positions,
           height: polygon.height,
-          vertexFormat: PerInstanceColorAppearance.VERTEX_FORMAT,
+          vertexFormat: VertexFormat.POSITION_NORMAL_AND_ST,
           perPositionHeight: polygon.usePointHeight,
         })
 
-    const instance = new GeometryInstance({
-      id: Utils.encode(polygon.id, param.module),
-      geometry,
-      attributes: {
-        color: ColorGeometryInstanceAttribute.fromColor(polygon.color),
-      },
-    })
+    const instance = new GeometryInstance({ id: Utils.encode(polygon.id, param.module), geometry })
 
+    const appearance = new MaterialAppearance({
+      material: new Material({
+        fabric: {
+          type: polygon.materialType,
+          uniforms: { ...polygon.materialUniforms },
+        },
+      }),
+    })
     const primitive = polygon.ground
       ? new GroundPrimitive({
+          show: polygon.show,
+          appearance,
           geometryInstances: instance,
-          appearance: new PerInstanceColorAppearance(),
           classificationType: ClassificationType.TERRAIN,
         })
       : new Primitive({
+          show: polygon.show,
+          appearance,
           geometryInstances: instance,
-          appearance: new PerInstanceColorAppearance(),
         })
 
     if (outline) {

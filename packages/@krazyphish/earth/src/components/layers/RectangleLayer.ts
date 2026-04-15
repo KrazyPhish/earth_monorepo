@@ -3,11 +3,11 @@ import {
   Cartesian3,
   ClassificationType,
   Color,
-  ColorGeometryInstanceAttribute,
   GeometryInstance,
   GroundPrimitive,
   HorizontalOrigin,
   LabelStyle,
+  MaterialAppearance,
   PerInstanceColorAppearance,
   Primitive,
   PrimitiveCollection,
@@ -21,6 +21,7 @@ import { Labeled, Layer, Outlined } from "../../abstract"
 import { PolylineLayer } from "./PolylineLayer"
 import { Utils } from "../../utils"
 import type { Earth } from "../Earth"
+import type { CustomMaterial } from "../material"
 
 export namespace RectangleLayer {
   export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
@@ -31,7 +32,9 @@ export namespace RectangleLayer {
    * @extends Layer.AddParam {@link Layer.AddParam}
    * @property rectangle {@link Rectangle} 矩形
    * @property [height] 高度
-   * @property [color = {@link Color.BLUE}] 填充色
+   * @property [color = {@link Color.WHITE}] 填充颜色
+   * @property [materialType = "Color"] 填充材质
+   * @property [materialUniforms = { color: {@link Color.WHITE} }] 填充材质参数
    * @property [ground = false] 是否贴地
    * @property [outline] {@link OutlineAddParam} 轮廓线
    * @property [label] {@link LabelAddParam} 对应标签
@@ -39,7 +42,12 @@ export namespace RectangleLayer {
   export type AddParam<T> = Layer.AddParam<T> & {
     rectangle: Rectangle
     height?: number
+    /**
+     * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+     */
     color?: Color
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     ground?: boolean
     outline?: OutlineAddParam<T>
     label?: LabelAddParam<T>
@@ -81,7 +89,9 @@ export class RectangleLayer<T = unknown>
       rectangle: {
         id: param.id ?? Utils.uuid(),
         rectangle: param.rectangle,
-        color: param.color ?? Color.BLUE.withAlpha(0.4),
+        color: param.color ?? Color.WHITE.withAlpha(0.4),
+        materialType: param.materialType ?? "Color",
+        materialUniforms: param.materialUniforms ?? { color: Color.WHITE.withAlpha(0.4) },
         height: param.height ?? 0,
         show: param.show ?? true,
         ground: param.ground ?? false,
@@ -90,7 +100,7 @@ export class RectangleLayer<T = unknown>
         ? {
             width: param.outline?.width ?? 2,
             materialType: param.outline?.materialType ?? "Color",
-            materialUniforms: param.outline?.materialUniforms ?? { color: Color.BLUE },
+            materialUniforms: param.outline?.materialUniforms ?? { color: Color.WHITE },
           }
         : undefined,
       label: param.label
@@ -118,7 +128,8 @@ export class RectangleLayer<T = unknown>
    * const rectLayer = new RectangleLayer(earth)
    * rectLayer.add({
    *  rectangle: Rectangle.fromDegrees(104, 31, 105, 32),
-   *  color: Color.RED,
+   *  materialType: "Color",
+   *  materialUniforms: { color: Color.RED },
    *  ground: true,
    * })
    * ```
@@ -130,21 +141,15 @@ export class RectangleLayer<T = unknown>
     const geometry = rectangle.ground
       ? new RectangleGeometry({
           rectangle: rectangle.rectangle,
-          vertexFormat: PerInstanceColorAppearance.VERTEX_FORMAT,
+          vertexFormat: MaterialAppearance.MaterialSupport.TEXTURED.vertexFormat,
         })
       : new RectangleGeometry({
           rectangle: rectangle.rectangle,
           height: rectangle.height,
-          vertexFormat: PerInstanceColorAppearance.VERTEX_FORMAT,
+          vertexFormat: MaterialAppearance.MaterialSupport.TEXTURED.vertexFormat,
         })
 
-    const instance = new GeometryInstance({
-      id: Utils.encode(rectangle.id, param.module),
-      geometry,
-      attributes: {
-        color: ColorGeometryInstanceAttribute.fromColor(rectangle.color),
-      },
-    })
+    const instance = new GeometryInstance({ id: Utils.encode(rectangle.id, param.module), geometry })
 
     const primitive = rectangle.ground
       ? new GroundPrimitive({

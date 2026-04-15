@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-empty-function */
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest"
 import { deprecate } from "../../src"
 
 describe("decorator name: deprecate", () => {
-  let watcher: Mock<(message?: any, ...optionalParams: any[]) => void>
+  let watcher: Mock<(message?: string, ...optionalParams: unknown[]) => void>
   beforeEach(() => {
     watcher = vi.spyOn(console, "warn").mockImplementation(() => {})
   })

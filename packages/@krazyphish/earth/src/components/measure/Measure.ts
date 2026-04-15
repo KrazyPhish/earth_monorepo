@@ -28,6 +28,7 @@ import { Geographic } from "../coordinate"
 import { PolylineLayer, LabelLayer, PolygonLayer } from "../layers"
 import type { Earth } from "../Earth"
 import type { Destroyable } from "../../abstract"
+import type { CustomMaterial } from "../material"
 
 export namespace Measure {
   /**
@@ -89,8 +90,8 @@ export namespace Measure {
    * @extends Base {@link Base}
    * @property [split = true] 是否为分段方位测量，否则为首点方位测量
    * @property [width = 2] 测量线宽度
-   * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-   * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+   * @property [materialType = "PolylineDash"] 测量线材质
+   * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
    * @property [labelOutlineColor = {@link Color.RED}] 标签轮廓色
    * @property [labelOutlineWidth = 1] 标签轮廓线宽度
    * @property [labelFillColor = {@link Color.RED}] 标签字体色
@@ -101,8 +102,8 @@ export namespace Measure {
   export type Bearing = Base & {
     split?: boolean
     width?: number
-    materialType?: PolylineLayer.MaterialType
-    materialUniforms?: PolylineLayer.MaterialUniforms
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     labelOutlineColor?: Color
     labelOutlineWidth?: number
     labelFillColor?: Color
@@ -134,8 +135,8 @@ export namespace Measure {
    * @extends Base {@link Base}
    * @property [split = true] 是否为分段方距测量，否则为首点方距测量
    * @property [width = 2] 测量线宽度
-   * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-   * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+   * @property [materialType = "PolylineDash"] 测量线材质
+   * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
    * @property [labelOutlineColor = {@link Color.RED}] 标签轮廓色
    * @property [labelOutlineWidth = 1] 标签轮廓线宽度
    * @property [labelFillColor = {@link Color.RED}] 标签字体色
@@ -146,8 +147,8 @@ export namespace Measure {
   export type Distance = Base & {
     split?: boolean
     width?: number
-    materialType?: PolylineLayer.MaterialType
-    materialUniforms?: PolylineLayer.MaterialUniforms
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     labelOutlineColor?: Color
     labelOutlineWidth?: number
     labelFillColor?: Color
@@ -159,8 +160,8 @@ export namespace Measure {
   /**
    * @extends Base {@link Base}
    * @property [width = 2] 测量线宽度
-   * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-   * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+   * @property [materialType = "PolylineDash"] 测量线材质
+   * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
    * @property [labelOutlineColor = {@link Color.RED}] 标签轮廓色
    * @property [labelOutlineWidth = 1] 标签轮廓线宽度
    * @property [labelFillColor = {@link Color.RED}] 标签字体色
@@ -170,8 +171,8 @@ export namespace Measure {
    */
   export type HeightDifference = Base & {
     width?: number
-    materialType?: PolylineLayer.MaterialType
-    materialUniforms?: PolylineLayer.MaterialUniforms
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     labelOutlineColor?: Color
     labelOutlineWidth?: number
     labelFillColor?: Color
@@ -198,14 +199,14 @@ export namespace Measure {
    * @extends Base {@link Base}
    * @property [splits = 50] 剖面取点个数
    * @property [width = 2] 测量线宽度
-   * @property [materialType = "PolylineDash"] {@link PolylineLayer.MaterialType} 测量线材质
-   * @property [materialUniforms = { color: Color.ORANGE }] {@link PolylineLayer.MaterialUniforms} 测量线材质参数
+   * @property [materialType = "PolylineDash"] 测量线材质
+   * @property [materialUniforms = { color: Color.ORANGE }] 测量线材质参数
    */
   export type Section = Base & {
     splits?: number
     width?: number
-    materialType?: PolylineLayer.MaterialType
-    materialUniforms?: PolylineLayer.MaterialUniforms
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
   }
 }
 
@@ -1038,8 +1039,10 @@ export class Measure implements Destroyable {
     materialUniforms = { color: Color.ORANGE },
   }: Measure.Section = {}): Promise<Measure.SectionReturn> {
     const getMaterial = (
-      materialType: PolylineLayer.MaterialType,
-      materialUniforms?: PolylineLayer.MaterialUniforms
+      materialType: CustomMaterial.Type,
+      materialUniforms?: CustomMaterial.Uniforms<
+        "PolylineArrow" | "PolylineDash" | "PolylineGlow" | "PolylineOutline" | "Color"
+      >
     ) => {
       switch (materialType) {
         case "Color": {
@@ -1056,9 +1059,7 @@ export class Measure implements Destroyable {
           })
         }
         case "PolylineGlow": {
-          return new PolylineGlowMaterialProperty({
-            ...materialUniforms,
-          })
+          return new PolylineGlowMaterialProperty({ ...materialUniforms })
         }
         case "PolylineOutline": {
           return new PolylineOutlineMaterialProperty({
@@ -1093,7 +1094,12 @@ export class Measure implements Destroyable {
               return [start, tempEnd]
             }, false),
             width,
-            material: getMaterial(materialType, materialUniforms),
+            material: getMaterial(
+              materialType,
+              materialUniforms as CustomMaterial.Uniforms<
+                "PolylineArrow" | "PolylineDash" | "PolylineGlow" | "PolylineOutline" | "Color"
+              >
+            ),
             clampToGround: true,
           },
         })

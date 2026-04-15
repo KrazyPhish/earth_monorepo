@@ -14,7 +14,7 @@ export class Utils {
    * @returns 随机ID
    */
   @validate
-  static uuid(@except([separator, "x"]) @is(String) symbol: string = "-") {
+  static uuid(@except([separator, "x", "y", "4"]) @is(String) symbol: string = "-") {
     const uid = `xxxxxxxx${symbol}xxxx${symbol}4xxx${symbol}yxxx${symbol}xxxxxxxxxxxx`
     return uid.replace(/[xy]/g, (c) => {
       const r = (random() * 16) | 0

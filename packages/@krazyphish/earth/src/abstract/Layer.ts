@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { generate } from "@krazyphish/develop-utils"
 import type {
   Billboard,
@@ -144,7 +143,7 @@ export abstract class Layer<C extends Layer.Collections, P extends Layer.Primiti
    * @description 抽象新增方法
    * @param option 选项
    */
-  abstract add(option: any): void
+  abstract add(option: unknown): void
 
   /**
    * @description 根据ID获取缓存的对象

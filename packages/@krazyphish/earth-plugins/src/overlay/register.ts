@@ -54,7 +54,6 @@ export const registerEChartsOverlay = (earth: Earth) => {
     static create(globalModel: any, api: CustomSeriesRenderItemAPI) {
       let coordSys: EarthCoordinateSystem
       globalModel.eachComponent("GLMap", (earthModel: ComponentModel) => {
-        //@ts-expect-error private attr use
         coordSys = new EarthCoordinateSystem(earth._scene, api)
         //@ts-expect-error private attr use
         coordSys.setMapOffset(earthModel.__mapOffset || [0, 0])

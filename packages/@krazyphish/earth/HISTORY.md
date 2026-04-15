@@ -2,6 +2,12 @@
 
 ### 版本更新历史记录
 
+### Version 1.0.5
+1. 删除类 `Figure` 中的废弃的方法
+2. 废弃 `EllipseLayer.add` 中的 `color` 参数，新增 `materialType` 和 `materialUniforms` 参数作为替代
+3. 废弃 `PolygonLayer.add` 中的 `color` 参数，新增 `materialType` 和 `materialUniforms` 参数作为替代
+4. 废弃 `RectangleLayer.add` 中的 `color` 参数，新增 `materialType` 和 `materialUniforms` 参数作为替代
+
 ### Version 1.0.4
 
 1. 优化 `Covering` 类的拖尾线的渲染方式，提升性能

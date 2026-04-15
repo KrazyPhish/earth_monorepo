@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ArcType,
   Color,
@@ -21,31 +20,13 @@ import type { Earth } from "../Earth"
 
 export namespace PolylineLayer {
   /**
-   * @description 线条材质类型
-   */
-  export type MaterialType =
-    | "Color"
-    | "PolylineArrow"
-    | "PolylineDash"
-    | "PolylineGlow"
-    | "PolylineOutline"
-    | "PolylineFlowingDash"
-    | "PolylineFlowingWave"
-    | "PolylineTrailing"
-
-  /**
-   * @description 材质类型对应的 `uniforms` 参数
-   */
-  export type MaterialUniforms = { [key: string]: any }
-
-  /**
    * @extends Layer.AddParam {@link Layer.AddParam}
    * @property lines {@link Cartesian3} 位置
    * @property [asynchronous = true] 是否异步渲染
    * @property [width = 2] 线宽
    * @property [arcType = {@link ArcType.GEODESIC}] 线段弧度类型
    * @property [materialType = "Color"] {@link MaterialType} 材质类型
-   * @property [materialUniforms = { color: {@link Color.RED} }] {@link MaterialUniforms} 材质参数
+   * @property [materialUniforms = { color: {@link Color.WHITE} }] 材质参数
    * @property [perLineVertexColors] 各线段或其顶点使用单独的颜色，将忽略材质相关配置
    * @property [ground = false] 是否贴地
    * @property [loop = false] 是否首尾相接
@@ -55,8 +36,8 @@ export namespace PolylineLayer {
     asynchronous?: boolean
     width?: number
     arcType?: ArcType
-    materialType?: MaterialType
-    materialUniforms?: MaterialUniforms
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     perLineVertexColors?: Color[] | Color[][]
     ground?: boolean
     loop?: boolean
@@ -100,7 +81,7 @@ export class PolylineLayer<T = unknown> extends Layer<
    *  width: 2,
    *  arcType: ArcType.RHUMB,
    *  materialType: "Color",
-   *  materialUniforms: { color: Color.RED },
+   *  materialUniforms: { color: Color.WHITE },
    *  asynchronous: true,
    *  ground: true,
    * })
@@ -118,7 +99,7 @@ export class PolylineLayer<T = unknown> extends Layer<
       ground = false,
       loop = false,
       materialType = "Color",
-      materialUniforms = { color: Color.RED },
+      materialUniforms = { color: Color.WHITE },
       perLineVertexColors,
       show = true,
       data,

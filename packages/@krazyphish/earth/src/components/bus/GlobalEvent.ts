@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Cartesian2, Entity, ScreenSpaceEventHandler } from "cesium"
 import { EventBus } from "./EventBus"
 import { Utils } from "../../utils"
@@ -20,7 +19,7 @@ export namespace GlobalEvent {
     position: Cartesian2
     id?: string
     module?: string
-    target?: any
+    target?: unknown
   }
   export type Callback = (param: CallbackParam) => void
 }

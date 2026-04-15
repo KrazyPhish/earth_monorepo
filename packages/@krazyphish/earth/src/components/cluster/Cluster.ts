@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Color,
   PinBuilder,
@@ -34,7 +33,7 @@ export namespace Cluster {
    * @param cluster 聚合选项
    */
   export type CustomFunction = (
-    clusteredEntities: any[],
+    clusteredEntities: unknown[],
     cluster: { billboard: Billboard; label: Label; point: PointPrimitive }
   ) => void
 

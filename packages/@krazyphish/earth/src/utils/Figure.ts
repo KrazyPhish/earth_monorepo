@@ -8,15 +8,12 @@ import {
   sampleTerrainMostDetailed,
   PolylinePipeline,
 } from "cesium"
-//@ts-expect-error turf use old declaration types
 import * as turf from "@turf/turf"
 import { Geographic } from "../components/coordinate"
 import { EarthRadius } from "../enum"
-import { moreThan, is, lessThan, validate, freeze, positive, deprecate } from "@krazyphish/develop-utils"
+import { moreThan, is, lessThan, validate, freeze, positive } from "@krazyphish/develop-utils"
 
 const { abs, asin, pow, sqrt, sin, cos, PI } = Math
-
-//TODO delete deprecations at v2.6.x
 
 /**
  * @description 算法
@@ -54,11 +51,6 @@ export class Figure {
     return x1 * y3 + x2 * y1 + x3 * y2 - x1 * y2 - x2 * y3 - x3 * y1
   }
 
-  @deprecate("Figure.crossProduct")
-  static CrossProduct(a: number[], b: number[], c: number[]) {
-    return this.crossProduct(a, b, c)
-  }
-
   /**
    * @description 计算球体上两点的测地线距离
    * @param from 坐标点
@@ -78,11 +70,6 @@ export class Figure {
     return distance
   }
 
-  @deprecate("Figure.calcDistance")
-  static CalcDistance<T extends Geographic>(from: T, to: T, units: turf.Units = "meters") {
-    return this.calcDistance(from, to, units)
-  }
-
   /**
    * @description 计算球体上两点的恒向线距离
    * @param from 坐标点
@@ -100,11 +87,6 @@ export class Figure {
     const p2 = turf.point(to.toArray())
     const distance = turf.rhumbDistance(p1, p2, { units })
     return distance
-  }
-
-  @deprecate("Figure.calcRhumbDistance")
-  static CalcRhumbDistance<T extends Geographic>(from: T, to: T, units: turf.Units = "meters") {
-    return this.calcRhumbDistance(from, to, units)
   }
 
   /**
@@ -172,16 +154,6 @@ export class Figure {
     return allLength
   }
 
-  @deprecate("Figure.calcGroundDistance")
-  static async CalcGroundDistance<T extends Geographic>(
-    from: T,
-    to: T,
-    scene: Scene,
-    terrainProvider: TerrainProvider
-  ) {
-    return await this.calcGroundDistance(from, to, scene, terrainProvider)
-  }
-
   /**
    * @description 根据经纬度，距离，角度计算另外一个点
    * @param longitude 经度 <角度制>
@@ -208,11 +180,6 @@ export class Figure {
     return [lon, lat]
   }
 
-  @deprecate("Figure.calcPointByPointDistanceAngle")
-  static CalcPointByPointDistanceAngle(longitude: number, latitude: number, distance: number, angle: number) {
-    return this.calcPointByPointDistanceAngle(longitude, latitude, distance, angle)
-  }
-
   /**
    * @description 计算点是否在矩形中
    * @param point 坐标点
@@ -222,11 +189,6 @@ export class Figure {
   @validate
   static pointInRectangle(@is(Geographic) point: Geographic, @is(Rectangle) rectangle: Rectangle) {
     return Rectangle.contains(rectangle, point.toCartographic())
-  }
-
-  @deprecate("Figure.pointInRectangle")
-  static PointInRectangle(point: Geographic, rectangle: Rectangle) {
-    return this.pointInRectangle(point, rectangle)
   }
 
   /**
@@ -248,11 +210,6 @@ export class Figure {
     return radius > dis
   }
 
-  @deprecate("Figure.pointInCircle")
-  static PointInCircle<T extends Geographic>(point: T, center: T, radius: number, units: turf.Units = "meters") {
-    return this.pointInCircle(point, center, radius, units)
-  }
-
   /**
    * @description 计算点是否在多边形内
    * @param point 坐标点
@@ -271,11 +228,6 @@ export class Figure {
     }, [] as number[][])
     const pg = turf.polygon([pl])
     return turf.booleanPointInPolygon(p, pg)
-  }
-
-  @deprecate("Figure.pointInPolygon")
-  static PointInPolygon<T extends Geographic>(point: T, polygon: T[]) {
-    return this.pointInPolygon(point, polygon)
   }
 
   /**
@@ -299,11 +251,6 @@ export class Figure {
       return false
     }
     return true
-  }
-
-  @deprecate("Figure.polylineIntersectPolyline")
-  static PolylineIntersectPolyline(line1: Geographic[], line2: Geographic[]) {
-    return this.polylineIntersectPolyline(line1, line2)
   }
 
   /**
@@ -342,11 +289,6 @@ export class Figure {
     return crossed
   }
 
-  @deprecate("Figure.polylineIntersectRectangle")
-  static PolylineIntersectRectangle(polyline: Geographic[], rectangle: Rectangle) {
-    return this.polylineIntersectRectangle(polyline, rectangle)
-  }
-
   /**
    * @description 计算测地线角度，以正北方向为基准
    * @param from 基准原点
@@ -361,11 +303,6 @@ export class Figure {
     return bearing
   }
 
-  @deprecate("Figure.calcBearing")
-  static CalcBearing<T extends Geographic>(from: T, to: T) {
-    return this.calcBearing(from, to)
-  }
-
   /**
    * @description 计算恒向线角度，以正北方向为基准
    * @param from 基准原点
@@ -378,11 +315,6 @@ export class Figure {
     const point2 = turf.point(to.toArray())
     const bearing = turf.rhumbBearing(point1, point2)
     return bearing
-  }
-
-  @deprecate("Figure.calcRhumbBearing")
-  static CalcRhumbBearing<T extends Geographic>(from: T, to: T) {
-    return this.calcRhumbBearing(from, to)
   }
 
   /**
@@ -400,11 +332,6 @@ export class Figure {
     return angle < 0 ? angle + 180 * 2 : angle
   }
 
-  @deprecate("Figure.calcAngle")
-  static CalcAngle<T extends Geographic>(a: T, b: T, c: T) {
-    return this.calcAngle(a, b, c)
-  }
-
   /**
    * @description 计算两点中心点
    * @param point1
@@ -418,11 +345,6 @@ export class Figure {
     const [longitude, latitude] = turf.midpoint(p1, p2).geometry.coordinates
     const height = (point1.height + point2.height) / 2.0
     return new Geographic(longitude, latitude, height)
-  }
-
-  @deprecate("Figure.calcMidPoint")
-  static CalcMidPoint<T extends Geographic>(point1: T, point2: T) {
-    return this.calcMidPoint(point1, point2)
   }
 
   /**
@@ -451,11 +373,6 @@ export class Figure {
     return new Geographic(longitude, latitude, height)
   }
 
-  @deprecate("Figure.calcMassCenter")
-  static CalcMassCenter(points: Geographic[], withHeight = false) {
-    return this.calcMassCenter(points, withHeight)
-  }
-
   /**
    * @description 计算一个一定位于多边形上的点
    * @param polygon 多边形
@@ -472,11 +389,6 @@ export class Figure {
     return new Geographic(longitude, latitude)
   }
 
-  @deprecate("Figure.calcPointOnPolygon")
-  static CalcPointOnPolygon(polygon: Geographic[]) {
-    return this.calcPointOnPolygon(polygon)
-  }
-
   /**
    * @description 计算多边形面积
    * @param polygon 多边形
@@ -490,11 +402,6 @@ export class Figure {
     }, [] as number[][])
     const pg = turf.polygon([pl])
     return turf.area(pg)
-  }
-
-  @deprecate("Figure.calcPolygonArea")
-  static CalcPolygonArea(polygon: Geographic[]) {
-    return this.calcPolygonArea(polygon)
   }
 
   /**
@@ -530,11 +437,6 @@ export class Figure {
     return positions
   }
 
-  @deprecate("Figure.calcEnvelope")
-  static CalcEnvelope(x: number, y: number, radius1: number, radius2: number, rotate: number) {
-    return this.calcEnvelope(x, y, radius1, radius2, rotate)
-  }
-
   /**
    * @description 根据高度和测地线长度计算圆锥的真实高度和半径
    * @param height 对地高度
@@ -546,11 +448,6 @@ export class Figure {
     const r = EarthRadius.AVERAGE * sin(arc / EarthRadius.AVERAGE)
     const h = height + EarthRadius.AVERAGE * (1 - cos(arc / EarthRadius.AVERAGE))
     return { radius: r, height: h }
-  }
-
-  @deprecate("Figure.calcConic")
-  static CalcConic(height: number, arc: number) {
-    return this.calcConic(height, arc)
   }
 
   /**
@@ -566,11 +463,6 @@ export class Figure {
       return p
     }, 0)
     return distance
-  }
-
-  @deprecate("Figure.calcMathDistance")
-  static CalcMathDistance(positions: number[][]) {
-    return this.calcMathDistance(positions)
   }
 
   /**
@@ -597,11 +489,6 @@ export class Figure {
     return [origin[0] + s, origin[1] + a]
   }
 
-  @deprecate("Figure.calcThirdPoint")
-  static CalcThirdPoint(target: number[], origin: number[], angle: number, radius: number, revert: boolean = false) {
-    return this.calcThirdPoint(target, origin, angle, radius, revert)
-  }
-
   /**
    * @description 计算两点构成的数学角度、以正北方向为基准
    * @param target 点1
@@ -624,11 +511,6 @@ export class Figure {
     return res % PI
   }
 
-  @deprecate("Figure.calcAzimuth")
-  static CalcAzimuth(target: number[], origin: number[]) {
-    return this.calcAzimuth(target, origin)
-  }
-
   /**
    * @description 计算三点的数学夹角
    * @param a 边缘点
@@ -644,10 +526,5 @@ export class Figure {
   ) {
     const angle = this.calcAzimuth(b, a) - this.calcAzimuth(b, c)
     return (angle < 0 ? angle + PI * 2 : angle) % PI
-  }
-
-  @deprecate("Figure.calcMathAngle")
-  static CalcMathAngle(a: number[], b: number[], c: number[]) {
-    return this.calcMathAngle(a, b, c)
   }
 }

@@ -2,13 +2,13 @@ import {
   Cartesian3,
   ClassificationType,
   Color,
-  ColorGeometryInstanceAttribute,
   EllipseGeometry,
   GeometryInstance,
   GroundPrimitive,
   HorizontalOrigin,
   LabelStyle,
-  PerInstanceColorAppearance,
+  Material,
+  MaterialAppearance,
   Primitive,
   PrimitiveCollection,
   VerticalOrigin,
@@ -19,6 +19,7 @@ import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer } from "../../abstract"
 import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
+import type { CustomMaterial } from "../material"
 
 export namespace EllipseLayer {
   export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
@@ -30,7 +31,9 @@ export namespace EllipseLayer {
    * @property minorAxis 短半径
    * @property [rotation] 旋转
    * @property [height] 高度
-   * @property [color = {@link Color.RED}] 填充色
+   * @property [color = {@link Color.WHITE}] 填充颜色
+   * @property [materialType = "Color"] 填充材质
+   * @property [materialUniforms = { color: {@link Color.WHITE} }] 填充材质参数
    * @property [ground = false] 是否贴地
    * @property [label] {@link LabelAddParam} 对应标签
    */
@@ -40,7 +43,12 @@ export namespace EllipseLayer {
     minorAxis: number
     rotation?: number
     height?: number
+    /**
+     * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+     */
     color?: Color
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     ground?: boolean
     label?: LabelAddParam<T>
   }
@@ -82,7 +90,8 @@ export class EllipseLayer<T = unknown>
         majorAxis: param.majorAxis,
         minorAxis: param.minorAxis,
         rotation: param.rotation ?? 0,
-        color: param.color ?? Color.RED.withAlpha(0.4),
+        materialType: param.materialType ?? "Color",
+        materialUniforms: param.materialUniforms ?? { color: param.color ?? Color.WHITE.withAlpha(0.4) },
         ground: param.ground ?? false,
         height: param.height ?? Geographic.fromCartesian(param.center).height,
       },
@@ -113,7 +122,8 @@ export class EllipseLayer<T = unknown>
    *  center: Cartesian3.fromDegrees(104, 31),
    *  majorAxis: 5000,
    *  minorAxis: 5000,
-   *  color: Color.RED,
+   *  materialType: "Color",
+   *  materialUniforms: { color: Color.WHITE },
    *  ground: true,
    * })
    * ```
@@ -133,22 +143,29 @@ export class EllipseLayer<T = unknown>
         semiMinorAxis: ellipse.minorAxis,
         rotation: ellipse.rotation,
         height: ellipse.height,
-        vertexFormat: PerInstanceColorAppearance.VERTEX_FORMAT,
+        vertexFormat: MaterialAppearance.MaterialSupport.TEXTURED.vertexFormat,
       }),
-      attributes: {
-        color: ColorGeometryInstanceAttribute.fromColor(ellipse.color),
-      },
     })
 
+    const appearance = new MaterialAppearance({
+      material: new Material({
+        fabric: {
+          type: ellipse.materialType,
+          uniforms: { ...ellipse.materialUniforms },
+        },
+      }),
+    })
     const primitive = ellipse.ground
       ? new GroundPrimitive({
+          show: ellipse.show,
+          appearance,
           geometryInstances: instance,
-          appearance: new PerInstanceColorAppearance(),
           classificationType: ClassificationType.TERRAIN,
         })
       : new Primitive({
+          show: ellipse.show,
+          appearance,
           geometryInstances: instance,
-          appearance: new PerInstanceColorAppearance(),
         })
 
     if (label) {

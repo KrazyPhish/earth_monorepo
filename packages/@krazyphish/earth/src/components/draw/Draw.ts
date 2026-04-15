@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ScreenSpaceEventHandler,
   ScreenSpaceEventType,
@@ -40,6 +39,9 @@ import { WallDynamic } from "./WallDynamic"
 import { LabelDynamic } from "./LabelDynamic"
 import { Destroyable, Dynamic } from "../../abstract"
 import { enumerable, generate, singleton } from "@krazyphish/develop-utils"
+import type { CustomMaterial } from "../material"
+
+type UnknownFunc = (...args: unknown[]) => void
 
 export namespace Draw {
   /**
@@ -60,7 +62,7 @@ export namespace Draw {
   export type CallbackParam = {
     type: string
     event: SubEventType
-    data: { [key: string]: any }
+    data: { [key: string]: unknown }
   }
 
   export type EventCallback = (param: CallbackParam) => void
@@ -275,8 +277,8 @@ export namespace Draw {
    * @property [onFinish] 绘制结束的回调
    */
   export type Polyline = Base & {
-    materialType?: PolylineLayer.MaterialType
-    materialUniforms?: PolylineLayer.MaterialUniforms
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
     width?: number
     keep?: boolean
     ground?: boolean
@@ -595,55 +597,55 @@ export class ProtoDraw implements Destroyable {
   subscribe(target: DrawType, event: SubEventType, callback: Draw.EventCallback) {
     switch (target) {
       case DrawType.POINT: {
-        this._point.subscribe(event, callback)
+        this._point.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.BILLBOARD: {
-        this._billboard.subscribe(event, callback)
+        this._billboard.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.CIRCLE: {
-        this._circle.subscribe(event, callback)
+        this._circle.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.MODEL: {
-        this._model.subscribe(event, callback)
+        this._model.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.POLYGON: {
-        this._polygon.subscribe(event, callback)
+        this._polygon.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.POLYLINE: {
-        this._polyline.subscribe(event, callback)
+        this._polyline.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.RECTANGLE: {
-        this._rectangle.subscribe(event, callback)
+        this._rectangle.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.STRAIGHT_ARROW: {
-        this._straightArrow.subscribe(event, callback)
+        this._straightArrow.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.ATTACK_ARROW: {
-        this._attackArrow.subscribe(event, callback)
+        this._attackArrow.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.PINCER_ARROW: {
-        this._pincerArrow.subscribe(event, callback)
+        this._pincerArrow.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.WALL: {
-        this._wall.subscribe(event, callback)
+        this._wall.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.STROKE: {
-        this._stroke.subscribe(event, callback)
+        this._stroke.subscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.LABEL: {
-        this._label.subscribe(event, callback)
+        this._label.subscribe(event, callback as UnknownFunc)
         break
       }
     }
@@ -658,55 +660,55 @@ export class ProtoDraw implements Destroyable {
   unsubscribe(target: DrawType, event: SubEventType, callback: Draw.EventCallback) {
     switch (target) {
       case DrawType.POINT: {
-        this._point.unsubscribe(event, callback)
+        this._point.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.BILLBOARD: {
-        this._billboard.unsubscribe(event, callback)
+        this._billboard.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.CIRCLE: {
-        this._circle.unsubscribe(event, callback)
+        this._circle.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.MODEL: {
-        this._model.unsubscribe(event, callback)
+        this._model.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.POLYGON: {
-        this._polygon.unsubscribe(event, callback)
+        this._polygon.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.POLYLINE: {
-        this._polyline.unsubscribe(event, callback)
+        this._polyline.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.RECTANGLE: {
-        this._rectangle.unsubscribe(event, callback)
+        this._rectangle.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.STRAIGHT_ARROW: {
-        this._straightArrow.unsubscribe(event, callback)
+        this._straightArrow.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.ATTACK_ARROW: {
-        this._attackArrow.unsubscribe(event, callback)
+        this._attackArrow.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.PINCER_ARROW: {
-        this._pincerArrow.unsubscribe(event, callback)
+        this._pincerArrow.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.WALL: {
-        this._wall.unsubscribe(event, callback)
+        this._wall.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.STROKE: {
-        this._stroke.unsubscribe(event, callback)
+        this._stroke.unsubscribe(event, callback as UnknownFunc)
         break
       }
       case DrawType.LABEL: {
-        this._label.unsubscribe(event, callback)
+        this._label.unsubscribe(event, callback as UnknownFunc)
         break
       }
     }

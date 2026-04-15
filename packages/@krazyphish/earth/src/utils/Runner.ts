@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { enumerable } from "@krazyphish/develop-utils"
 import { Queue } from "./Queue"
 import { Utils } from "./Utils"
@@ -10,8 +9,8 @@ export class Runner {
   #cache: Queue<{
     id: string
     resolve: (value: unknown) => void
-    reject: (reason?: any) => void
-    task: (...args: any[]) => Promise<any>
+    reject: (reason?: unknown) => void
+    task: (...args: unknown[]) => Promise<unknown>
   }>
   #threads: number
 
@@ -74,10 +73,15 @@ export class Runner {
    * @param task 要添加的异步任务
    * @returns 任务ID
    */
-  add<T extends any[], R>(task: (...args: T) => Promise<R>) {
+  add<T extends unknown[], R>(task: (...args: T) => Promise<R>) {
     const id = Utils.uuid()
     new Promise((resolve, reject) => {
-      this.#cache.enqueue({ resolve, reject, task, id })
+      this.#cache.enqueue({
+        resolve,
+        reject,
+        task: task as (...args: unknown[]) => Promise<unknown>,
+        id,
+      })
       this.#run()
     })
     return id
@@ -88,7 +92,7 @@ export class Runner {
    * @param task 要添加的同步任务
    * @returns 任务ID
    */
-  addSync<T extends any[], R>(task: (...args: T) => R) {
+  addSync<T extends unknown[], R>(task: (...args: T) => R) {
     return this.add(Runner.toAsync(task))
   }
 
@@ -131,7 +135,7 @@ export class Runner {
    * @param task 原任务
    * @returns 转换后的异步任务
    */
-  static toAsync<T extends any[], R>(task: (...args: T) => R) {
+  static toAsync<T extends unknown[], R>(task: (...args: T) => R) {
     return (...args: T) =>
       new Promise<R>((resolve, reject) => {
         try {
