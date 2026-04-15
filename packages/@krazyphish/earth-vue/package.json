@@ -1,7 +1,7 @@
 {
   "name": "@krazyphish/earth-vue",
   "author": "KrazyPhish",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "type": "module",
   "scripts": {
     "build": "pnpm release && pnpm type",
