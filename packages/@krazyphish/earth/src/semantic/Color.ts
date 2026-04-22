@@ -227,6 +227,40 @@ export class Color {
   }
 
   /**
+   * @description 转换为hsl颜色
+   */
+  toHsl() {
+    const normalizeHue = (h: number) => {
+      return ((h % 360) + 360) % 360
+    }
+    const { red, green, blue, alpha } = this
+    const r = red / 255
+    const g = green / 255
+    const b = blue / 255
+    const max = Math.max(r, g, b)
+    const min = Math.min(r, g, b)
+    const d = max - min
+    const l = (max + min) / 2
+    let h: number = 0
+    let s: number = 0
+    if (d !== 0) {
+      s = d / (1 - Math.abs(2 * l - 1))
+      switch (max) {
+        case r:
+          h = 60 * (((g - b) / d) % 6)
+          break
+        case g:
+          h = 60 * ((b - r) / d + 2)
+          break
+        case b:
+          h = 60 * ((r - g) / d + 4)
+          break
+      }
+    }
+    return { hue: normalizeHue(h), saturation: s, lightness: l, alpha: alpha === 0xff ? 1 : alpha / 255 }
+  }
+
+  /**
    * @description 转换为符合css标准的颜色字符串
    * @example
    * ```

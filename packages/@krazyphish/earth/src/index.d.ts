@@ -3564,7 +3564,7 @@ declare module "@krazyphish/earth" {
      * @property [silhouetteSize = 1] 轮廓大小
      * @property [animationLoop = {@link ModelAnimationLoop.REPEAT}] 动画方式
      * @property [distanceDisplayCondition] {@link DistanceDisplayCondition} 按距离设置可见性
-     * @property [hightReference = {@link HeightReference.NONE}] 高度位置参考
+     * @property [heightReference = {@link HeightReference.NONE}] 高度位置参考
      * @property [label] {@link LabelAddParam} 对应标签
      * @property [envelope] {@link EnvelopeAddParam} 对应包络
      */
@@ -3582,7 +3582,7 @@ declare module "@krazyphish/earth" {
       silhouetteSize?: number
       animationLoop?: ModelAnimationLoop
       distanceDisplayCondition?: DistanceDisplayCondition
-      hightReference?: HeightReference
+      heightReference?: HeightReference
       label?: LabelAddParam<T>
       envelope?: EnvelopeAddParam<T>
     }
@@ -5221,7 +5221,17 @@ declare module "@krazyphish/earth" {
       magnificationFilter?: TextureMagnificationFilter
       fabric: { [key: string]: any }
     }
+    /**
+     * @description 获取材质
+     * @param type 材质类型名
+     */
     const getMaterialByType: (type: string) => Material
+    /**
+     * @description 添加材质缓存
+     * @param type 材质类型名
+     * @param material 材质
+     */
+    const addCache: (type: string, material: Material) => void
   }
 
   /**
@@ -8836,6 +8846,10 @@ declare module "@krazyphish/earth" {
      * @description 转换为16进制数
      */
     toHex(): number
+    /**
+     * @description 转换为hsl颜色
+     */
+    toHsl(): { hue: number; saturation: number; lightness: number; alpha: number }
     /**
      * @description 转换为cesium颜色
      */

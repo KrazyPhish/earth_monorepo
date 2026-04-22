@@ -66,7 +66,7 @@ export namespace ModelLayer {
    * @property [silhouetteSize = 1] 轮廓大小
    * @property [animationLoop = {@link ModelAnimationLoop.REPEAT}] 动画方式
    * @property [distanceDisplayCondition] {@link DistanceDisplayCondition} 按距离设置可见性
-   * @property [hightReference = {@link HeightReference.NONE}] 高度位置参考
+   * @property [heightReference = {@link HeightReference.NONE}] 高度位置参考
    * @property [label] {@link LabelAddParam} 对应标签
    * @property [envelope] {@link EnvelopeAddParam} 对应包络
    */
@@ -84,7 +84,7 @@ export namespace ModelLayer {
     silhouetteSize?: number
     animationLoop?: ModelAnimationLoop
     distanceDisplayCondition?: DistanceDisplayCondition
-    hightReference?: HeightReference
+    heightReference?: HeightReference
     label?: LabelAddParam<T>
     envelope?: EnvelopeAddParam<T>
   }
@@ -188,7 +188,7 @@ export class ModelLayer<T = unknown>
     colorBlendAmount = 0.5,
     silhouetteColor = Color.LIGHTYELLOW,
     silhouetteSize = 1,
-    hightReference,
+    heightReference,
     distanceDisplayCondition,
     label,
     envelope,
@@ -207,7 +207,7 @@ export class ModelLayer<T = unknown>
         colorBlendMode,
         silhouetteColor,
         silhouetteSize,
-        hightReference,
+        heightReference,
         distanceDisplayCondition,
         modelMatrix,
       },

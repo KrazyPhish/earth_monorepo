@@ -12,7 +12,6 @@ import {
   PolygonGeometry,
   Primitive,
   PrimitiveCollection,
-  VertexFormat,
   VerticalOrigin,
 } from "cesium"
 import { Geographic } from "../coordinate"
@@ -22,7 +21,7 @@ import { Labeled, Layer, Outlined } from "../../abstract"
 import { PolylineLayer } from "./PolylineLayer"
 import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
-import type { CustomMaterial } from "../material"
+import { CustomMaterial } from "../material"
 
 export namespace PolygonLayer {
   export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
@@ -159,14 +158,16 @@ export class PolygonLayer<T = unknown>
           arcType: polygon.arcType,
           positions: polygon.positions,
           height: polygon.height,
-          vertexFormat: VertexFormat.POSITION_NORMAL_AND_ST,
+          vertexFormat: MaterialAppearance.MaterialSupport.TEXTURED.vertexFormat,
           perPositionHeight: polygon.usePointHeight,
         })
 
     const instance = new GeometryInstance({ id: Utils.encode(polygon.id, param.module), geometry })
 
+    const CMaterial = CustomMaterial.getMaterialByType(polygon.materialType) ?? Material
+
     const appearance = new MaterialAppearance({
-      material: new Material({
+      material: new CMaterial({
         fabric: {
           type: polygon.materialType,
           uniforms: { ...polygon.materialUniforms },
@@ -196,6 +197,7 @@ export class PolygonLayer<T = unknown>
       this._outlineLayer.add({
         id: polygon.id,
         module: param.module,
+        show: param.show,
         data: param.data,
         arcType: param.arcType,
         lines: [positions],
@@ -212,6 +214,8 @@ export class PolygonLayer<T = unknown>
       const { longitude, latitude } = Figure.calcMassCenter(geos.concat(geos[0].clone()))!
       this._labelLayer.add({
         id: polygon.id,
+        module: param.module,
+        data: param.data,
         position: Cartesian3.fromDegrees(longitude, latitude, polygon.height),
         ...label,
       })

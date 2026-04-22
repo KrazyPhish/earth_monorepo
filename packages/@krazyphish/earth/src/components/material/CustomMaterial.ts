@@ -1,4 +1,11 @@
-import type { Cartesian2, Color, Material, TextureMagnificationFilter, TextureMinificationFilter } from "cesium"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  Material,
+  type Cartesian2,
+  type Color,
+  type TextureMagnificationFilter,
+  type TextureMinificationFilter,
+} from "cesium"
 import { PolylineFlowingDashMaterial } from "./PolylineFlowingDashMaterial"
 import { PolylineFlowingWaveMaterial } from "./PolylineFlowingWaveMaterial"
 import { PolylineTrailingMaterial } from "./PolylineTrailingMaterial"
@@ -179,10 +186,10 @@ export namespace CustomMaterial {
 
   export type ConstructorOptions = {
     strict?: boolean
-    translucent?: boolean | ((...params: unknown[]) => unknown)
+    translucent?: boolean | ((...params: any[]) => any)
     minificationFilter?: TextureMinificationFilter
     magnificationFilter?: TextureMagnificationFilter
-    fabric: { [key: string]: unknown }
+    fabric: { [key: string]: any }
   }
 }
 
@@ -198,5 +205,10 @@ export class CustomMaterial {
   static getMaterialByType(@is(String) type: string) {
     const customMaterial = CustomMaterial.materialMap.get(type)
     return customMaterial
+  }
+
+  @validate
+  static addCache(@is(String) type: string, @is(Material) material: typeof Material) {
+    CustomMaterial.materialMap.set(type, material)
   }
 }

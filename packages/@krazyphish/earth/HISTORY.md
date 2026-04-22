@@ -2,6 +2,12 @@
 
 ### 版本更新历史记录
 
+### Version 1.0.6
+1. 面类型图层 `Layer` 从仅内置材质支持升级为自定义材质支持
+2. `CustomMaterial` 类新增 `addCache` 方法，用于缓存自定义材质
+3. 语义化类 `Color` 新增方法 `toHsl`，用于将颜色转换为 HSL 格式
+4. 修复新增模型时由参数错误导致的问题
+
 ### Version 1.0.5
 1. 删除类 `Figure` 中的废弃的方法
 2. 废弃 `EllipseLayer.add` 中的 `color` 参数，新增 `materialType` 和 `materialUniforms` 参数作为替代

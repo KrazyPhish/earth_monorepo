@@ -19,7 +19,7 @@ import { LabelLayer } from "./LabelLayer"
 import { Labeled, Layer } from "../../abstract"
 import { generate, is, validate } from "@krazyphish/develop-utils"
 import type { Earth } from "../Earth"
-import type { CustomMaterial } from "../material"
+import { CustomMaterial } from "../material"
 
 export namespace EllipseLayer {
   export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
@@ -147,8 +147,10 @@ export class EllipseLayer<T = unknown>
       }),
     })
 
+    const CMaterial = CustomMaterial.getMaterialByType(ellipse.materialType) ?? Material
+
     const appearance = new MaterialAppearance({
-      material: new Material({
+      material: new CMaterial({
         fabric: {
           type: ellipse.materialType,
           uniforms: { ...ellipse.materialUniforms },

@@ -94,7 +94,7 @@ export class ModelDynamic extends Dynamic<ModelLayer<Dynamic.Model>> {
           silhouetteColor,
           silhouetteSize,
           minimumPixelSize,
-          hightReference: HeightReference.CLAMP_TO_GROUND,
+          heightReference: HeightReference.CLAMP_TO_GROUND,
           position: cartesian,
           data: {
             type: DrawType.MODEL,

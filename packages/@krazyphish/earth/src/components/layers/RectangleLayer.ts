@@ -7,8 +7,8 @@ import {
   GroundPrimitive,
   HorizontalOrigin,
   LabelStyle,
+  Material,
   MaterialAppearance,
-  PerInstanceColorAppearance,
   Primitive,
   PrimitiveCollection,
   Rectangle,
@@ -21,7 +21,7 @@ import { Labeled, Layer, Outlined } from "../../abstract"
 import { PolylineLayer } from "./PolylineLayer"
 import { Utils } from "../../utils"
 import type { Earth } from "../Earth"
-import type { CustomMaterial } from "../material"
+import { CustomMaterial } from "../material"
 
 export namespace RectangleLayer {
   export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
@@ -151,17 +151,28 @@ export class RectangleLayer<T = unknown>
 
     const instance = new GeometryInstance({ id: Utils.encode(rectangle.id, param.module), geometry })
 
+    const CMaterial = CustomMaterial.getMaterialByType(rectangle.materialType) ?? Material
+
+    const appearance = new MaterialAppearance({
+      material: new CMaterial({
+        fabric: {
+          type: rectangle.materialType,
+          uniforms: { ...rectangle.materialUniforms },
+        },
+      }),
+    })
+
     const primitive = rectangle.ground
       ? new GroundPrimitive({
           show: rectangle.show,
+          appearance,
           geometryInstances: instance,
-          appearance: new PerInstanceColorAppearance(),
           classificationType: ClassificationType.TERRAIN,
         })
       : new Primitive({
           show: rectangle.show,
+          appearance,
           geometryInstances: instance,
-          appearance: new PerInstanceColorAppearance(),
         })
 
     if (outline) {
@@ -183,6 +194,7 @@ export class RectangleLayer<T = unknown>
       ])
       this._outlineLayer.add({
         id: rectangle.id,
+        show: param.show,
         module: param.module,
         data: param.data,
         arcType: ArcType.GEODESIC,
