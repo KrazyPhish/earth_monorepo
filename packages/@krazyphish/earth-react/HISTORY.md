@@ -2,21 +2,29 @@
 
 ### 版本更新历史记录
 
-#### Version 0.1.3
+#### Version 1.0.7
+
+1. 新增 `usePlaneLayer` 以钩子形式创建平面图层
+
+#### Version 1.0.6
+
+1. 新增 `useCorridorLayer` 以钩子形式创建路径图层
+
+#### Version 1.0.3
 
 1. 修复一些示例描述错误和变量规范使用问题
 
-#### Version 0.1.2
+#### Version 1.0.2
 
 1. 为所有非单例模式组件新增合适的清除函数
 
-#### Version 0.1.1
+#### Version 1.0.1
 
 1. 删除所有钩子的清除函数
 2. 更改 `useEarth` 钩子实例化对象的持久性, 以防止反复渲染和挂载
 3. 删除 `useEarth` 钩子的第二个参数 `id`
 
-#### Version 0.1.0
+#### Version 1.0.0
 
 1. 新增 `useAnimationManager` 以钩子形式创建动画管理器
 2. 新增 `useBillboardLayer` 以钩子形式创建广告牌图层

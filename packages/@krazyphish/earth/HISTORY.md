@@ -2,6 +2,13 @@
 
 ### 版本更新历史记录
 
+### Version 1.0.7
+1. 修复 `WallLayer` 类的 `appearance` 属性问题导致墙体轮廓线渲染异常
+2. 为 `WallLayer` 类的面材质提供自定义材质支持
+3. 修复语义化类 `Color` 中的转换方法问题，确保颜色转换结果与预期一致
+4. 新增类 `CorridorLayer`，用于控制自定义路径图层的渲染
+5. 新增类 `PlaneLayer`，用于控制自定义平面图层的渲染
+
 ### Version 1.0.6
 1. 面类型图层 `Layer` 从仅内置材质支持升级为自定义材质支持
 2. `CustomMaterial` 类新增 `addCache` 方法，用于缓存自定义材质

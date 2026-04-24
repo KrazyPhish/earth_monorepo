@@ -12,10 +12,12 @@ import type {
   CloudCollection,
   Color as CzmColor,
   ColorBlendMode,
+  CornerType,
   CumulusCloud,
   DepthFunction,
   DistanceDisplayCondition,
   Ellipsoid,
+  Entity,
   FrameState,
   GroundPolylinePrimitive,
   GroundPrimitive,
@@ -26,6 +28,7 @@ import type {
   Label,
   LabelCollection,
   Material,
+  Math,
   Matrix4,
   Model,
   ModelAnimationLoop,
@@ -51,7 +54,7 @@ import type {
   TextureMinificationFilter,
   UrlTemplateImageryProvider,
   Viewer,
-  Entity,
+  Plane,
 } from "cesium"
 
 declare module "@krazyphish/earth" {
@@ -2821,6 +2824,157 @@ declare module "@krazyphish/earth" {
     destroy(): boolean
   }
 
+  export namespace CorridorLayer {
+    /**
+     * @extends Layer.AddParam {@link Layer.AddParam}
+     * @property corridors {@link Cartesian3} 路径数组
+     * @property [width = 10] 线宽 `m`
+     * @property [height = 0] 高度 `m`
+     * @property [extrudedHeight] 球面与挤压面的距离 `m`
+     * @property [materialType = "Color"] {@link CustomMaterial.Type} 材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] {@link CustomMaterial.Uniforms} 材质参数
+     * @property [cornerType = {@link CornerType.ROUNDED}] 角点类型
+     * @property [granularity = {@link Math.RADIANS_PER_DEGREE}] 粒度
+     */
+    export type AddParam<T> = Layer.AddParam<T> & {
+      corridors: Cartesian3[][]
+      width?: number
+      height?: number
+      extrudedHeight?: number
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
+      cornerType?: CornerType
+      granularity?: number
+    }
+  }
+
+  /**
+   * @description 路径图层
+   * @param earth {@link Earth} 地球实例
+   * @example
+   * ```
+   * const earth = createEarth()
+   * const corridorLayer = new CorridorLayer(earth)
+   * ```
+   */
+  export class CorridorLayer<T = unknown> {
+    constructor(earth: Earth)
+    /**
+     * @description 是否允许销毁
+     */
+    readonly allowDestroy: boolean
+    /**
+     * @description 销毁状态
+     */
+    readonly isDestroyed: boolean
+    /**
+     * @description 集合
+     */
+    readonly collection: PrimitiveCollection
+    /**
+     * @description 对象实体缓存
+     */
+    readonly cache: Map<string, Layer.Cache<Primitive, T>>
+    /**
+     * @description 设置是否可被销毁
+     * @param status
+     */
+    setAllowDestroy(status: boolean): void
+    /**
+     * @description 新增路径
+     * @param param {@link CorridorLayer.AddParam} 路径参数
+     * @example
+     * ```
+     * const earth = createEarth()
+     * const corridorLayer = new CorridorLayer(earth)
+     * corridorLayer.add({
+     *  corridors: [[
+     *    Cartesian3.fromDegrees(104, 31, 200),
+     *    Cartesian3.fromDegrees(105, 31, 300),
+     *    Cartesian3.fromDegrees(104, 32, 500),
+     *  ]],
+     *  width: 4,
+     *  materialType: "Color",
+     *  materialUniforms: { color: Color.WHITE },
+     *  cornerType: CornerType.ROUNDED,
+     * })
+     * ```
+     */
+    add(param: CorridorLayer.AddParam<T>): void
+    /**
+     * @description 根据ID获取缓存的对象
+     * @param id ID
+     * @returns 缓存对象
+     */
+    getEntity(id: string): Layer.Cache<Primitive, T> | undefined
+    /**
+     * @description 根据ID获取实体的数据
+     * @param id ID
+     * @returns 实体数据
+     */
+    getData(id: string): Layer.Data<T> | undefined
+    /**
+     * @description 根据ID获取图元
+     * @param id ID
+     * @returns 图元
+     */
+    getPrimitive(id: string): Primitive | undefined
+    /**
+     * @description 根据ID测试实体条目是否存在
+     * @param id ID
+     * @returns 返回`boolean`值
+     */
+    has(id: string): boolean
+    /**
+     * @description 根据ID判断实体图元是否存在
+     * @param id ID
+     * @returns 返回`boolean`值
+     */
+    exist(id: string): boolean
+    /**
+     * @description 显示所有线段
+     */
+    show(): void
+    /**
+     * @description 根据ID显示线段
+     * @param id ID
+     */
+    show(id: string): void
+    /**
+     * @description 隐藏所有线段
+     */
+    hide(): void
+    /**
+     * @description 根据ID隐藏线段
+     * @param id ID
+     */
+    hide(id: string): void
+    /**
+     * @description 判断所有线段是否显示
+     */
+    shown(): boolean
+    /**
+     * @description 根据ID判断线段是否显示
+     * @param id ID
+     * @returns 返回`boolean`值
+     */
+    shown(id: string): boolean
+    /**
+     * @description 移除所有线段
+     */
+    remove(): void
+    /**
+     * @description 根据ID移除线段
+     * @param id ID
+     */
+    remove(id: string): void
+    /**
+     * @description 销毁
+     * @returns 返回`boolean`值
+     */
+    destroy(): boolean
+  }
+
   export namespace DiffusePointLayer {
     /**
      * @property pointSVG 点的svg图像
@@ -2943,8 +3097,8 @@ declare module "@krazyphish/earth" {
      * @property [rotation] 旋转
      * @property [height] 高度
      * @property [color = {@link CzmColor.WHITE}] 填充颜色
-     * @property [materialType = "Color"] 填充材质
-     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] 填充材质参数
+     * @property [materialType = "Color"] {@link CustomMaterial.Type} 填充材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] {@link CustomMaterial.Uniforms} 填充材质参数
      * @property [ground = false] 是否贴地
      * @property [label] {@link LabelAddParam} 对应标签
      */
@@ -4206,6 +4360,174 @@ declare module "@krazyphish/earth" {
     destroy(): boolean
   }
 
+  export namespace PlaneLayer {
+    /**
+     * @property primitive 图元
+     * @property data 附加数据
+     */
+    export type Cache<T> = { primitive: Primitive; data: Data<T> }
+    /**
+     * @property position {@link Cartesian3} 位置
+     * @property hpr {@link HeadingPitchRoll} 欧拉角
+     * @property plane {@link Plane} 法向量和偏移
+     * @property dimension {@link Cartesian2} 平面尺寸 `m`
+     */
+    export type Data<T> = Layer.Data<T> & {
+      position: Cartesian3
+      hpr: HeadingPitchRoll
+      plane: Plane
+      dimension: Cartesian2
+    }
+    /**
+     * @extends Layer.AddParam {@link Layer.AddParam}
+     * @property plane {@link Plane} 法向量和偏移
+     * @property position {@link Cartesian3} 平面位置
+     * @property [hpr] {@link HeadingPitchRoll} 欧拉角
+     * @property [dimension = {@link Cartesian2.ONE}] 平面尺寸 `m`
+     * @property [materialType = "Color"] {@link CustomMaterial.Type} 材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] {@link CustomMaterial.Uniforms} 材质参数
+     */
+    export type AddParam<T> = Layer.AddParam<T> & {
+      plane: Plane
+      position: Cartesian3
+      hpr?: HeadingPitchRoll
+      dimension?: Cartesian2
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
+    }
+    export type SetParam = {
+      position?: Cartesian3
+      hpr?: HeadingPitchRoll
+      plane?: Plane
+      dimension?: Cartesian2
+    }
+  }
+
+  /**
+   * @description 平面图层
+   * @extends Layer {@link Layer} 图层基类
+   * @param earth {@link Earth} 地球实例
+   * @example
+   * ```
+   * const earth = createEarth()
+   * const planeLayer = new PlaneLayer(earth)
+   * ```
+   * */
+  export class PlaneLayer<T = unknown> {
+    constructor(earth: Earth)
+    /**
+     * @description 是否允许销毁
+     */
+    readonly allowDestroy: boolean
+    /**
+     * @description 销毁状态
+     */
+    readonly isDestroyed: boolean
+    /**
+     * @description 集合
+     */
+    readonly collection: PrimitiveCollection
+    /**
+     * @description 对象实体缓存
+     */
+    readonly cache: Map<string, PlaneLayer.Cache<T>>
+    /**
+     * @description 设置是否可被销毁
+     * @param status
+     */
+    setAllowDestroy(status: boolean): void
+    /**
+     * @description 添加平面
+     * @param id 平面ID
+     * @param position 平面位置
+     * @param materialType 材质类型
+     * @param materialUniforms 材质统一变量
+     * @param show 是否显示
+     * @param data 数据
+     * @param module 模块
+     * @returns 平面实例
+     */
+    add(param: PlaneLayer.AddParam<T>): void
+    /**
+     * @description 设置平面
+     * @param id 平面ID
+     * @param param 平面参数
+     */
+    set(id: string, param: PlaneLayer.SetParam): void
+    /**
+     * @description 根据ID获取缓存的对象
+     * @param id ID
+     * @returns 缓存对象
+     */
+    getEntity(id: string): ModelLayer.Cache<T> | undefined
+    /**
+     * @description 根据ID获取实体的数据
+     * @param id ID
+     * @returns 实体数据
+     */
+    getData(id: string): ModelLayer.Data<T> | undefined
+    /**
+     * @description 根据ID获取图元
+     * @param id ID
+     * @returns 图元
+     */
+    getPrimitive(id: string): Model | undefined
+    /**
+     * @description 根据ID测试实体条目是否存在
+     * @param id ID
+     * @returns 返回`boolean`值
+     */
+    has(id: string): boolean
+    /**
+     * @description 根据ID判断实体图元是否存在
+     * @param id ID
+     * @returns 返回`boolean`值
+     */
+    exist(id: string): boolean
+    /**
+     * @description 隐藏所有模型
+     */
+    hide(): void
+    /**
+     * @description 隐藏所有模型
+     * @param id 根据ID隐藏模型
+     */
+    hide(id: string): void
+    /**
+     * @description 显示所有模型
+     */
+    show(): void
+    /**
+     * @description 根据ID显示模型
+     * @param id ID
+     */
+    show(id: string): void
+    /**
+     * @description 判断所有模型是否显示
+     */
+    shown(): boolean
+    /**
+     * @description 根据ID判断模型是否显示
+     * @param id ID
+     * @returns 返回`boolean`值
+     */
+    shown(id: string): boolean
+    /**
+     * @description 移除所有模型
+     */
+    remove(): void
+    /**
+     * @description 根据ID移除模型
+     * @param id ID
+     */
+    remove(id: string): void
+    /**
+     * @description 销毁
+     * @returns 返回`boolean`值
+     */
+    destroy(): boolean
+  }
+
   export namespace PointLayer {
     export type LabelAddParam<T> = Omit<LabelLayer.AddParam<T>, LabelLayer.Attributes>
     export type LabelSetParam<T> = Omit<LabelLayer.SetParam<T>, "position">
@@ -4393,8 +4715,8 @@ declare module "@krazyphish/earth" {
      * @property positions {@link Cartesian3} 位置
      * @property [height] 高度
      * @property [color = {@link CzmColor.WHITE}] 填充颜色
-     * @property [materialType = "Color"] 填充材质
-     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] 填充材质参数
+     * @property [materialType = "Color"] {@link CustomMaterial.Type} 填充材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] {@link CustomMaterial.Uniforms} 填充材质参数
      * @property [usePointHeight = false] 多边形顶点使用其自身高度
      * @property [ground = false] 是否贴地
      * @property [arcType = {@link ArcType.GEODESIC}] 线段弧度类型，贴地时无效
@@ -4646,15 +4968,6 @@ declare module "@krazyphish/earth" {
      */
     add(param: PolylineLayer.AddParam<T>): void
     /**
-     * @description 检测给定地球是否支持贴地线绘制
-     * @param earth 指定地球
-     * @example
-     * ```
-     * const earth = createEarth()
-     * const isSupported = PolylineLayer.isGroundSupported(earth)
-     * ```
-     */
-    /**
      * @description 根据ID获取缓存的对象
      * @param id ID
      * @returns 缓存对象
@@ -4727,8 +5040,13 @@ declare module "@krazyphish/earth" {
      */
     destroy(): boolean
     /**
-     * @description 指定地球实例是否支持贴地线
-     * @param earth 地球实例
+     * @description 检测给定地球是否支持贴地线绘制
+     * @param earth 指定地球
+     * @example
+     * ```
+     * const earth = createEarth()
+     * const isSupported = PolylineLayer.isGroundSupported(earth)
+     * ```
      */
     static isGroundSupported(earth: Earth): boolean
   }
@@ -4741,8 +5059,8 @@ declare module "@krazyphish/earth" {
      * @property rectangle {@link Rectangle} 矩形
      * @property [height] 高度
      * @property [color = {@link CzmColor.WHITE}] 填充颜色
-     * @property [materialType = "Color"] 填充材质
-     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] 填充材质参数
+     * @property [materialType = "Color"] {@link CustomMaterial.Type} 填充材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] {@link CustomMaterial.Uniforms} 填充材质参数
      * @property [ground = false] 是否贴地
      * @property [outline] {@link OutlineAddParam} 轮廓线
      * @property [label] {@link LabelAddParam} 对应标签
@@ -4900,8 +5218,10 @@ declare module "@krazyphish/earth" {
      * @property positions {@link Cartesian3} 位置
      * @property [maximumHeights = 5000] 最大高度
      * @property [minimumHeights = 0] 最小高度
-     * @property [color = {@link CzmColor.LAWNGREEN}] 填充色
+     * @property [color = {@link CzmColor.WHITE}] 填充色
      * @property [outline = true] 是否渲染边框
+     * @property [materialType = "Color"] {@link CustomMaterial.Type} 填充材质类型
+     * @property [materialUniforms = { color: {@link CzmColor.WHITE} }] {@link CustomMaterial.Uniforms} 填充材质参数
      * @property [outlineColor = {@link CzmColor.WHITESMOKE}] 边框色
      * @property [outlineWidth = 1] 边框宽度
      */
@@ -4909,9 +5229,23 @@ declare module "@krazyphish/earth" {
       positions: Cartesian3[]
       maximumHeights?: number[]
       minimumHeights?: number[]
+      /**
+       * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+       */
       color?: CzmColor
+      materialType?: CustomMaterial.Type
+      materialUniforms?: CustomMaterial.Uniforms
+      /**
+       * @deprecated 已废弃，不再支持边框
+       */
       outline?: boolean
-      outlineColor?: CzmColor
+      /**
+       * @deprecated 已废弃
+       */
+      outlineColor?: Color
+      /**
+       * @deprecated 已废弃
+       */
       outlineWidth?: number
     }
   }
@@ -4963,8 +5297,8 @@ declare module "@krazyphish/earth" {
      *  ],
      *  maximumHeights: [5000, 5000, 5000],
      *  minimumHeights: [0, 0, 0],
-     *  color: Color.RED,
-     *  outline: false,
+     *  materialType: "Color",
+     *  materialUniforms: { color: Color.RED },
      * })
      * ```
      */
@@ -5048,6 +5382,7 @@ declare module "@krazyphish/earth" {
    */
   export namespace CustomMaterial {
     export type MaterialConfigurations = {
+      [key: string]: object
       Color: {
         color?: CzmColor
       }
@@ -5225,13 +5560,13 @@ declare module "@krazyphish/earth" {
      * @description 获取材质
      * @param type 材质类型名
      */
-    const getMaterialByType: (type: string) => Material
+    const getMaterialByType: (type: Type) => Material
     /**
      * @description 添加材质缓存
      * @param type 材质类型名
-     * @param material 材质
+     * @param material 材质类
      */
-    const addCache: (type: string, material: Material) => void
+    const addCache: (type: Type, material: typeof Material) => void
   }
 
   /**

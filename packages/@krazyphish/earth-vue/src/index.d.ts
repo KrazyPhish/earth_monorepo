@@ -3,6 +3,7 @@ import type {
   BillboardLayer,
   CloudLayer,
   Cluster,
+  CorridorLayer,
   ContextMenu,
   Covering,
   DiffusePointLayer,
@@ -16,6 +17,7 @@ import type {
   Measure,
   ModelLayer,
   ParticleLayer,
+  PlaneLayer,
   PointLayer,
   PolygonLayer,
   PolylineLayer,
@@ -66,6 +68,12 @@ declare module "@krazyphish/earth-vue" {
    * @returns 上下文菜单Ref
    */
   export const useContextMenu: (earthRef: ShallowRef<Earth | null>) => ShallowRef<ContextMenu | null>
+  /**
+   * @description 路径图层钩子
+   * @param earthRef 地球实例Ref
+   * @returns 路径图层Ref
+   */
+  export const useCorridorLayer: <T>(earthRef: ShallowRef<Earth | null>) => ShallowRef<CorridorLayer<T> | null>
   /**
    * @description 覆盖物钩子
    * @param earthRef 地球实例Ref
@@ -149,6 +157,12 @@ declare module "@krazyphish/earth-vue" {
    * @returns 粒子系统图层Ref
    */
   export const useParticleLayer: <T>(earthRef: ShallowRef<Earth | null>) => ShallowRef<ParticleLayer<T> | null>
+  /**
+   * @description 平面图层钩子
+   * @param earthRef 地球实例Ref
+   * @returns 平面图层Ref
+   */
+  export const usePlaneLayer: <T>(earthRef: ShallowRef<Earth | null>) => ShallowRef<PlaneLayer<T> | null>
   /**
    * @description 点图层钩子
    * @param earthRef 地球实例Ref

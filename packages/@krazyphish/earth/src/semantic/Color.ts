@@ -363,8 +363,8 @@ export class Color {
   @validate
   static fromHsl(
     @positive() @lessThan(360) @is(Number) hue: number = 0,
-    @positive() @lessThan(100) @is(Number) saturation: number = 0,
-    @positive() @lessThan(100) @is(Number) lightness: number = 0,
+    @positive() @lessThan(1) @is(Number) saturation: number = 0,
+    @positive() @lessThan(1) @is(Number) lightness: number = 0,
     @positive() @lessThan(1) @is(Number) alpha: number = 1,
     @is(Color) result: Color = new Color()
   ) {
@@ -388,7 +388,7 @@ export class Color {
     } else {
       ;[r, g, b] = [c, 0, x]
     }
-    const to255 = (v: number) => round((v + m) * 255)
+    const to255 = (v: number) => Math.min(255, Math.max(0, Math.round((v + m) * 255)))
     result.red = to255(r)
     result.green = to255(g)
     result.blue = to255(b)

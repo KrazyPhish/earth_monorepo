@@ -87,11 +87,19 @@ describe("unit test for semantic class: Color", () => {
   })
 
   it("method 'fromHsl' returns a color from hsl standard", () => {
-    const color = Color.fromHsl(0, 0, 0, 1)
-    expect(color.red).toBe(0)
+    const color = Color.fromHsl(0, 1, 0.5, 1)
+    expect(color.red).toBe(255)
     expect(color.green).toBe(0)
     expect(color.blue).toBe(0)
     expect(color.alpha).toBe(255)
+  })
+
+  it("method 'toHsl' returns a color to hsl standard with alpha value", () => {
+    const hsl = Color.RED.toHsl()
+    expect(hsl.hue).toBe(0)
+    expect(hsl.saturation).toBe(1)
+    expect(hsl.lightness).toBe(0.5)
+    expect(hsl.alpha).toBe(1)
   })
 
   it("method 'fromPercentage' returns a color from percentage values", () => {

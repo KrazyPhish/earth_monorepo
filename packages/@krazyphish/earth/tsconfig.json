@@ -7,5 +7,5 @@
       "@krazyphish/develop-utils": ["./node_modules/@krazyphish/develop-utils/src/index.ts"]
     }
   },
-  "include": ["src/**/*.ts", "@krazyphish/develop-utils"]
+  "include": ["src/**/*.ts"]
 }

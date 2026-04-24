@@ -32,8 +32,8 @@ export namespace EllipseLayer {
    * @property [rotation] 旋转
    * @property [height] 高度
    * @property [color = {@link Color.WHITE}] 填充颜色
-   * @property [materialType = "Color"] 填充材质
-   * @property [materialUniforms = { color: {@link Color.WHITE} }] 填充材质参数
+   * @property [materialType = "Color"] {@link CustomMaterial.Type} 填充材质类型
+   * @property [materialUniforms = { color: Color.WHITE }] {@link CustomMaterial.Uniforms} 填充材质参数
    * @property [ground = false] 是否贴地
    * @property [label] {@link LabelAddParam} 对应标签
    */

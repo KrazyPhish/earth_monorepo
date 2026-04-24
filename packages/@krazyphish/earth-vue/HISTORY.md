@@ -2,7 +2,15 @@
 
 ### 版本更新历史记录
 
-#### Version 0.1.3
+#### Version 1.0.7
+
+1. 新增 `usePlaneLayer` 以钩子形式创建平面图层
+
+#### Version 1.0.6
+
+1. 新增 `useCorridorLayer` 以钩子形式创建路径图层
+
+#### Version 1.0.0
 
 1. 新增 `useAnimationManager` 以钩子形式创建动画管理器
 2. 新增 `useBillboardLayer` 以钩子形式创建广告牌图层

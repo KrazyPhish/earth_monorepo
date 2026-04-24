@@ -4,6 +4,7 @@ import type {
   CloudLayer,
   Cluster,
   ContextMenu,
+  CorridorLayer,
   Covering,
   DiffusePointLayer,
   Draw,
@@ -16,6 +17,7 @@ import type {
   Measure,
   ModelLayer,
   ParticleLayer,
+  PlaneLayer,
   PointLayer,
   PolygonLayer,
   PolylineLayer,
@@ -64,6 +66,12 @@ declare module "@krazyphish/earth-react" {
    * @returns 上下文菜单Ref
    */
   export const useContextMenu: (earthRef: RefObject<Earth | null>) => RefObject<ContextMenu | null>
+  /**
+   * @description 道路图层钩子
+   * @param earthRef 地球实例Ref
+   * @returns 道路图层Ref
+   */
+  export const useCorridorLayer: <T>(earthRef: RefObject<Earth | null>) => RefObject<CorridorLayer<T> | null>
   /**
    * @description 覆盖物钩子
    * @param earthRef 地球实例Ref
@@ -147,6 +155,12 @@ declare module "@krazyphish/earth-react" {
    * @returns 粒子系统图层Ref
    */
   export const useParticleLayer: <T>(earthRef: RefObject<Earth | null>) => RefObject<ParticleLayer<T> | null>
+  /**
+   * @description 平面图层钩子
+   * @param earthRef 地球实例Ref
+   * @returns 平面图层Ref
+   */
+  export const usePlaneLayer: <T>(earthRef: RefObject<Earth | null>) => RefObject<PlaneLayer<T> | null>
   /**
    * @description 点图层钩子
    * @param earthRef 地球实例Ref

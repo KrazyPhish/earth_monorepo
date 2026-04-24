@@ -1,18 +1,18 @@
 import {
   Color,
-  ColorGeometryInstanceAttribute,
   GeometryInstance,
-  PerInstanceColorAppearance,
+  Material,
+  MaterialAppearance,
   Primitive,
   PrimitiveCollection,
   WallGeometry,
-  WallOutlineGeometry,
   type Cartesian3,
 } from "cesium"
 import { is, validate } from "@krazyphish/develop-utils"
 import { Layer } from "../../abstract"
 import { Utils } from "../../utils"
 import type { Earth } from "../Earth"
+import { CustomMaterial } from "../material"
 
 export namespace WallLayer {
   /**
@@ -20,7 +20,9 @@ export namespace WallLayer {
    * @property positions {@link Cartesian3} 位置
    * @property [maximumHeights = 5000] 最大高度
    * @property [minimumHeights = 0] 最小高度
-   * @property [color = {@link Color.LAWNGREEN}] 填充色
+   * @property [color = {@link Color.WHITE}] 填充色
+   * @property [materialType = "Color"] {@link CustomMaterial.Type} 填充材质类型
+   * @property [materialUniforms = { color: Color.WHITE }] {@link CustomMaterial.Uniforms} 填充材质参数
    * @property [outline = true] 是否渲染边框
    * @property [outlineColor = {@link Color.WHITESMOKE}] 边框色
    * @property [outlineWidth = 1] 边框宽度
@@ -29,9 +31,23 @@ export namespace WallLayer {
     positions: Cartesian3[]
     maximumHeights?: number[]
     minimumHeights?: number[]
+    /**
+     * @deprecated 已废弃，使用材质参数 `materialType` 和 `materialUniforms`
+     */
     color?: Color
+    materialType?: CustomMaterial.Type
+    materialUniforms?: CustomMaterial.Uniforms
+    /**
+     * @deprecated 已废弃，不再支持边框
+     */
     outline?: boolean
+    /**
+     * @deprecated 已废弃
+     */
     outlineColor?: Color
+    /**
+     * @deprecated 已废弃
+     */
     outlineWidth?: number
   }
 }
@@ -51,32 +67,6 @@ export class WallLayer<T = unknown> extends Layer<PrimitiveCollection, Primitive
     super(earth, new PrimitiveCollection())
   }
 
-  #getDefaultOption({
-    id = Utils.uuid(),
-    color = Color.LAWNGREEN.withAlpha(0.5),
-    outline = true,
-    outlineColor = Color.WHITESMOKE.withAlpha(0.8),
-    outlineWidth = 1,
-    show = true,
-    positions,
-    maximumHeights,
-    minimumHeights,
-  }: WallLayer.AddParam<T>) {
-    const length = positions.length
-    const option = {
-      id,
-      color,
-      positions,
-      outline,
-      outlineColor,
-      outlineWidth,
-      show,
-      maximumHeights: maximumHeights ?? new Array(length).fill(5000),
-      minimumHeights: minimumHeights ?? new Array(length).fill(0),
-    }
-    return option
-  }
-
   /**
    * @description 新增墙体
    * @param param {@link WallLayer.AddParam} 墙体参数
@@ -92,116 +82,52 @@ export class WallLayer<T = unknown> extends Layer<PrimitiveCollection, Primitive
    *  ],
    *  maximumHeights: [5000, 5000, 5000],
    *  minimumHeights: [0, 0, 0],
-   *  color: Color.RED,
-   *  outline: false,
+   *  materialType: "Color",
+   *  materialUniforms: { color: Color.RED },
    * })
    * ```
    */
   @validate
-  add(@is(Array, "positions") param: WallLayer.AddParam<T>) {
-    const { data, module } = param
-    const { id, color, outline, outlineColor, outlineWidth, positions, maximumHeights, minimumHeights, show } =
-      this.#getDefaultOption(param)
-
-    const wall = new GeometryInstance({
+  add(
+    @is(Array, "positions")
+    {
+      id = Utils.uuid(),
+      data,
+      module,
+      materialType = "Color",
+      materialUniforms = { color: Color.WHITE },
+      show = true,
+      positions,
+      maximumHeights,
+      minimumHeights,
+    }: WallLayer.AddParam<T>
+  ) {
+    const instance = new GeometryInstance({
       id: Utils.encode(id, module),
       geometry: new WallGeometry({
         positions,
         maximumHeights,
         minimumHeights,
-        vertexFormat: PerInstanceColorAppearance.VERTEX_FORMAT,
+        vertexFormat: MaterialAppearance.MaterialSupport.TEXTURED.vertexFormat,
       }),
-      attributes: {
-        color: ColorGeometryInstanceAttribute.fromColor(color),
-      },
+    })
+
+    const CMaterial = CustomMaterial.getMaterialByType(materialType) ?? Material
+    const appearance = new MaterialAppearance({
+      material: new CMaterial({
+        fabric: {
+          type: materialType,
+          uniforms: { ...materialUniforms },
+        },
+      }),
     })
 
     const primitive = new Primitive({
       show,
-      geometryInstances: wall,
-      appearance: new PerInstanceColorAppearance(),
+      appearance,
+      geometryInstances: instance,
     })
 
     super._save(id, { primitive, data: { data, module } })
-
-    if (outline) {
-      const out = new GeometryInstance({
-        geometry: new WallOutlineGeometry({
-          positions,
-          maximumHeights,
-          minimumHeights,
-        }),
-        attributes: {
-          color: ColorGeometryInstanceAttribute.fromColor(outlineColor),
-        },
-      })
-
-      const outPrimitive = new Primitive({
-        show,
-        geometryInstances: out,
-        appearance: new PerInstanceColorAppearance({
-          flat: true,
-          renderState: {
-            lineWidth: outlineWidth,
-          },
-        }),
-      })
-
-      super._save(id + "_outline", { primitive: outPrimitive, data: { data, module } })
-    }
-  }
-
-  /**
-   * @description 隐藏所有墙体
-   */
-  hide(): void
-  /**
-   * @description 隐藏所有墙体
-   * @param id 根据ID隐藏墙体
-   */
-  hide(id: string): void
-  hide(id?: string) {
-    if (id) {
-      super.hide(id)
-      super.hide(id + "_outline")
-    } else {
-      super.hide()
-    }
-  }
-
-  /**
-   * @description 显示所有墙体
-   */
-  show(): void
-  /**
-   * @description 显示所有墙体
-   * @param id 根据ID显示墙体
-   */
-  show(id: string): void
-  show(id?: string) {
-    if (id) {
-      super.show(id)
-      super.show(id + "_outline")
-    } else {
-      super.show()
-    }
-  }
-
-  /**
-   * @description 移除所有墙体
-   */
-  remove(): void
-  /**
-   * @description 根据ID移除墙体
-   * @param id ID
-   */
-  remove(id: string): void
-  remove(id?: string) {
-    if (id) {
-      super.remove(id)
-      super.remove(id + "_outline")
-    } else {
-      super.remove()
-    }
   }
 }

@@ -1,6 +1,6 @@
 ## @krazyphish/earth
 
-A simpler module for GIS based on [cesium](https://www.npmjs.com/package/cesium), [turf](https://www.npmjs.com/package/@turf/turf).
+A simpler module for GIS based on [cesium](https://www.npmjs.com/package/cesium).
 
 ### Before start
 

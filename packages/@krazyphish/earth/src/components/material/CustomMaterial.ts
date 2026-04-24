@@ -16,6 +16,7 @@ import { is, freeze, validate } from "@krazyphish/develop-utils"
  */
 export namespace CustomMaterial {
   export type MaterialConfigurations = {
+    [key: string]: object
     Color: {
       color?: Color
     }
@@ -202,13 +203,13 @@ export class CustomMaterial {
   ])
 
   @validate
-  static getMaterialByType(@is(String) type: string) {
-    const customMaterial = CustomMaterial.materialMap.get(type)
+  static getMaterialByType(@is(String) type: CustomMaterial.Type) {
+    const customMaterial = CustomMaterial.materialMap.get(type as string)
     return customMaterial
   }
 
   @validate
-  static addCache(@is(String) type: string, @is(Material) material: typeof Material) {
-    CustomMaterial.materialMap.set(type, material)
+  static addCache(@is(String) type: CustomMaterial.Type, material: typeof Material) {
+    CustomMaterial.materialMap.set(type as string, material)
   }
 }
