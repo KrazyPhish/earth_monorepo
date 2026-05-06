@@ -351,11 +351,11 @@ declare module "cesium" {
      * @param {Cartesian3} [result] The object onto which to store the result.
      */
     export const getPosition: (
-      position,
-      ellipsoid,
-      verticalExaggeration,
-      verticalExaggerationRelativeHeight,
-      result
+      position: Cartesian3,
+      ellipsoid: Ellipsoid,
+      verticalExaggeration: number,
+      verticalExaggerationRelativeHeight: number,
+      result?: Cartesian3
     ) => Cartesian3
   }
 
@@ -375,6 +375,6 @@ declare module "cesium" {
     height: number
     color: Color
     backgroundColor: Color
-    render(context: CanvasRenderingContext2D, renderState: RenderState)
+    render(context: CanvasRenderingContext2D, renderState: RenderState): void
   }
 }
