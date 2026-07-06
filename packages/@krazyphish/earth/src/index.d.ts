@@ -14,17 +14,23 @@ import type {
   ColorBlendMode,
   CornerType,
   CumulusCloud,
+  CustomDataSource,
+  CzmlDataSource,
   DepthFunction,
   DistanceDisplayCondition,
   Ellipsoid,
   Entity,
+  EntityCollection,
   FrameState,
+  GeoJsonDataSource,
+  GpxDataSource,
   GroundPolylinePrimitive,
   GroundPrimitive,
   HeadingPitchRoll,
   ImageryLayer,
   ImageryProvider,
   JulianDate,
+  KmlDataSource,
   Label,
   LabelCollection,
   Material,
@@ -41,6 +47,7 @@ import type {
   PathGraphics,
   PixelDatatype,
   PixelFormat,
+  Plane,
   PointPrimitive,
   PointPrimitiveCollection,
   Primitive,
@@ -54,7 +61,6 @@ import type {
   TextureMinificationFilter,
   UrlTemplateImageryProvider,
   Viewer,
-  Plane,
 } from "cesium"
 
 declare module "@krazyphish/earth" {
@@ -6418,6 +6424,111 @@ declare module "@krazyphish/earth" {
      * @description 销毁
      */
     destroy(): void
+  }
+
+  export namespace EntityLayer {
+    export type DataSourceType = "Custom" | "GeoJson" | "Czml" | "Kml" | "Gpx"
+    export type DataSource = CustomDataSource | GeoJsonDataSource | CzmlDataSource | KmlDataSource | GpxDataSource
+    export type GroupedEntity<D> =
+      | (Entity & { module?: string; data?: D })
+      | (Entity.ConstructorOptions & { module?: string; data?: D })
+  }
+
+  /**
+   * @description 实体图层
+   * @param earth {@link Earth} 地球实例
+   * @param [owner = new CustomDataSource()] {@link DataSource} 实体所属数据源
+   * @example
+   * ```ts
+   * const earth = createEarth()
+   *
+   * // provide existing data source
+   * const dataSource = new CustomDataSource()
+   * const entityLayer = new EntityLayer(earth, dataSource)
+   *
+   * // create from function by type
+   * const dataSource = EntityLayer.createDataSource("Czml", "my_data_source")
+   * const entityLayer = new EntityLayer(earth, dataSource)
+   *
+   * // use default data source
+   * const entityLayer = new EntityLayer(earth)
+   * ```
+   * */
+  export class EntityLayer<T extends EntityLayer.DataSource, D = unknown> {
+    constructor(earth: Earth, owner: T)
+    readonly isDestroyed: boolean
+    readonly allowDestroy: boolean
+    readonly dataSource: T
+    readonly collection: EntityCollection
+    readonly cache: Map<string, Layer.Cache<Entity, Layer.Data<D>>>
+    /**
+     * @description 设置可否销毁
+     * @param value 是否允许销毁
+     */
+    setAllowDestroy(value: boolean): void
+    /**
+     * @description 根据ID获取缓存对象(此处Entity指代缓存而非Cesium实体)
+     * @param id ID
+     */
+    getEntity(id: string): Layer.Cache<Entity, Layer.Data<D>> | undefined
+    /**
+     * @description 根据ID获取实体数据
+     * @param id ID
+     */
+    getData(id: string): Layer.Data<D> | undefined
+    /**
+     * @description 根据ID获取图原(此处为Cesium实体Entity，非更底层的图原)
+     * @param id ID
+     */
+    getPrimitive(id: string): Entity | undefined
+    /**
+     * @description 新增实体
+     * @param entity 实体
+     */
+    add(entity: EntityLayer.GroupedEntity<D>): void
+    /**
+     * @description 删除所有实体
+     */
+    remove(): void
+    /**
+     * @description 根据ID删除实体
+     * @param id ID
+     */
+    remove(id: string): void
+    /**
+     * @description 销毁
+     */
+    destroy(): void
+    /**
+     * @description 创建自定义数据源
+     * @param type 自定义数据源
+     * @param [name] 数据源名称
+     */
+    static createDataSource(type: "Custom", name?: string): CustomDataSource
+    /**
+     * @description 创建GeoJSON数据源
+     * @param type GeoJSON数据源
+     * @param [name] 数据源名称
+     */
+    static createDataSource(type: "GeoJson", name?: string): GeoJsonDataSource
+    /**
+     * @description 创建Czml数据源
+     * @param type Czml数据源
+     * @param [name] 数据源名称
+     */
+    static createDataSource(type: "Czml", name?: string): CzmlDataSource
+    /**
+     * @description 创建Kml数据源
+     * @param type Kml数据源
+     * @param [name] 数据源名称
+     */
+    static createDataSource(type: "Kml", name?: string): KmlDataSource
+    /**
+     * @description 创建Gpx数据源
+     * @param type Gpx数据源
+     * @param [name] 数据源名称
+     */
+    static createDataSource(type: "Gpx", name?: string): GpxDataSource
   }
 
   export namespace Weather {

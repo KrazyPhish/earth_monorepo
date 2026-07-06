@@ -580,8 +580,8 @@ export class ModelLayer<T = unknown>
    */
   show(): void
   /**
-   * @description 显示所有模型
-   * @param id 根据ID显示模型
+   * @description 根据ID显示模型
+   * @param id ID
    */
   show(id: string): void
   show(id?: string) {

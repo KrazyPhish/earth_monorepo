@@ -6,7 +6,7 @@ earth_monorepo
  │  └─demo-react/ -react demo for earth, show basic use of earth module  
  └─packages/ -sources  
     ├─@krazyphish/  
-    │ ├─develop-utils/ -decorators: validator and funtional
+    │ ├─develop-utils/ -decorators: validator and funtional  
     │ ├─earth/ -simpler module for gis based on cesium  
     │ ├─earth-plugins/ -plugins for earth  
     │ ├─earth-react/ -react hooks for earth  
