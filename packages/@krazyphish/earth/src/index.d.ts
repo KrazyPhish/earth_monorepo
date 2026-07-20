@@ -6501,10 +6501,10 @@ declare module "@krazyphish/earth" {
     destroy(): void
     /**
      * @description 创建自定义数据源
-     * @param type 自定义数据源
+     * @param [type] 自定义数据源
      * @param [name] 数据源名称
      */
-    static createDataSource(type: "Custom", name?: string): CustomDataSource
+    static createDataSource(type?: "Custom", name?: string): CustomDataSource
     /**
      * @description 创建GeoJSON数据源
      * @param type GeoJSON数据源

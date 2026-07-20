@@ -11,13 +11,13 @@ export const generate = (value?: any): PropertyDecorator => {
   return (target, prop) => {
     const key = typeof prop === "string" ? prop : prop.toString()
     const pName = `_${key}`
-    Object.defineProperty(target, pName, {
+    Reflect.defineProperty(target, pName, {
       configurable: false,
       enumerable: false,
       writable: true,
       value,
     })
-    Object.defineProperty(target, prop, {
+    Reflect.defineProperty(target, prop, {
       configurable: false,
       enumerable: true,
       get() {

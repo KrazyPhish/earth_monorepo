@@ -35,7 +35,7 @@ export const deprecate = (
       //@ts-expect-error name type unsafe
       const owner = target.name ?? target.constructor.name
       const key = typeof prop === "string" ? prop : prop.toString()
-      Object.defineProperty(target, prop, {
+      Reflect.defineProperty(target, prop, {
         configurable: false,
         enumerable: true,
         get() {

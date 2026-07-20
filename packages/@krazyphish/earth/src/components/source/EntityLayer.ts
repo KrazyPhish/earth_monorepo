@@ -178,7 +178,7 @@ export class EntityLayer<T extends EntityLayer.DataSource, D = unknown> {
   static createDataSource(type: "Gpx", name?: string): GpxDataSource
   /**
    * @description 创建数据源
-   * @param type 数据源类型
+   * @param [type] 数据源类型
    * @param [name] 数据源名称
    */
   static createDataSource(type?: EntityLayer.DataSourceType, name?: string): EntityLayer.DataSource {
