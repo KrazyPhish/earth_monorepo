@@ -9422,7 +9422,7 @@ declare module "@krazyphish/earth" {
      * @param [result] 存储的对象
      * @example
      * ```
-     * const offset = new Offset()
+     * const offset = new Dimension()
      * ```
      */
     clone(result?: Dimension): Dimension
@@ -9449,10 +9449,10 @@ declare module "@krazyphish/earth" {
      * @example
      * ```
      * //default
-     * const tip = Offset.ZERO.toString() // "(0, 0, 0, 0)"
+     * const tip = Dimension.ZERO.toString() // "(0, 0, 0, 0)"
      *
      * //use template
-     * const tip = Offset.ZERO.toString("[%x, %y]") // "[0, 0]"
+     * const tip = Dimension.ZERO.toString("[%x, %y]") // "[0, 0]"
      * ```
      */
     toString(template?: string): string

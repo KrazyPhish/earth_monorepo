@@ -35,7 +35,7 @@ export class Dimension {
    * @param [result] 存储的对象
    * @example
    * ```
-   * const offset = new Offset()
+   * const offset = new Dimension()
    * ```
    */
   @validate
@@ -92,10 +92,10 @@ export class Dimension {
    * @example
    * ```
    * //default
-   * const tip = Offset.ZERO.toString() // "(0, 0, 0, 0)"
+   * const tip = Dimension.ZERO.toString() // "(0, 0, 0, 0)"
    *
    * //use template
-   * const tip = Offset.ZERO.toString("[%x, %y]") // "[0, 0]"
+   * const tip = Dimension.ZERO.toString("[%x, %y]") // "[0, 0]"
    * ```
    */
   @validate
