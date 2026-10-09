@@ -20,9 +20,29 @@ declare type KV<K extends Key = string, V = string> = { key: K; value: V }
 
 declare type Option<T = string> = { label: string; value: T }
 
-declare type DeepPartial<T> = { [K in keyof T]?: DeepPartial<T[K]> }
+declare type DeepPartial<T> = T extends
+  | Date
+  | RegExp
+  | Map<any, any>
+  | Set<any>
+  | readonly unknown[]
+  | ((...args: any[]) => any)
+  ? T
+  : T extends object
+    ? { [K in keyof T]?: DeepPartial<T[K]> }
+    : T
 
-declare type DeepRequired<T> = { [K in keyof T]-?: DeepRequired<T[K]> }
+declare type DeepRequired<T> = T extends
+  | Date
+  | RegExp
+  | Map<any, any>
+  | Set<any>
+  | readonly unknown[]
+  | ((...args: any[]) => any)
+  ? T
+  : T extends object
+    ? { [K in keyof T]-?: DeepRequired<T[K]> }
+    : T
 
 declare type PickRequired<T> = Exclude<keyof T, keyof Partial<T>>
 
